@@ -1,0 +1,88 @@
+version: '3'
+
+tasks:
+
+  default:
+    cmds:
+      - task: generate:docs
+      - task: generate:kod
+
+  generate:struct2interface:
+    desc: Runs kod struct2interface
+    cmds:
+      - go run github.com/go-kod/kod/cmd/kod struct2interface .
+    deps: [install:mockgen]
+
+  generate:kod:
+    desc: Runs kod generate
+    cmds:
+      - go run github.com/go-kod/kod/cmd/kod generate ./...
+    deps: [generate:struct2interface]
+
+  generate:docs:
+    desc: Run docs generate
+    cmds:
+      - swag init
+    deps: [install:swag]
+
+  lint:check:
+    desc: Runs golangci-lint
+    sources:
+      - './**/*.go'
+    aliases: [l]
+    cmds:
+      - golangci-lint run -v
+
+  lint:fix:
+    desc: Runs golangci-lint and fixes any issues
+    sources:
+      - './**/*.go'
+    cmds:
+      - golangci-lint run --fix
+
+  install:mod:
+    desc: Runs go mod tidy
+    cmds:
+      - go mod tidy
+
+  test:unit:
+    desc: Runs test
+    cmd: |
+        go test -race -cover -coverprofile=coverage.out -covermode=atomic ./internal/...
+        cat coverage.out| grep -v "kod_gen" > coverage.out.tmp
+        mv coverage.out.tmp coverage.out
+
+  test:coverage:
+    desc: Runs coverage
+    cmd: |
+        go tool cover -func=coverage.out
+    deps:
+      - test:unit
+
+  run:air:
+    desc: Runs air
+    cmds:
+      - KOD_CONFIG=./config/kod-dev.toml air
+    deps: [install:air, install:mod]
+
+  install:air:
+    desc: Install air
+    status:
+      - go version -m $GOPATH/bin/air | grep github.com/cosmtrek/air | grep `grep github.com/cosmtrek/air go.mod | awk '{print $2}'`
+    cmds:
+      - go install github.com/cosmtrek/air
+
+  install:mockgen:
+    desc: Install mockgen
+    status:
+      - go version -m $GOPATH/bin/mockgen | grep go.uber.org/mock | grep `grep go.uber.org/mock go.mod | awk '{print $2}'`
+    cmds:
+      - go install go.uber.org/mock/mockgen
+
+  install:swag:
+    desc: Install swag
+    status:
+      - go version -m $GOPATH/bin/swag | grep github.com/swaggo/swag | grep `grep github.com/swaggo/swag go.mod | awk '{print $2}'`
+    cmds:
+      - go install github.com/swaggo/swag/cmd/swag
+

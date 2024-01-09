@@ -1,0 +1,56 @@
+name: Build and Test
+
+on:
+ push:
+   branches:
+     - 'main'
+ pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ["stable"]
+    services:
+          # Label used to access the service container
+          redis:
+            # Docker Hub image
+            image: redis
+            # Set health checks to wait until redis has started
+            options: >-
+              --health-cmd "redis-cli ping"
+              --health-interval 10s
+              --health-timeout 5s
+              --health-retries 5
+            ports:
+              # Maps port 6379 on service container to the host
+              - 6379:6379
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.version }}
+          cache: true
+
+      - name: golangci-lint
+        if: runner.os != 'Windows'
+        uses: golangci/golangci-lint-action@v3.7.0
+        with:
+          args: "--out-${NO_FUTURE}format colored-line-number --timeout 5m"
+      
+      - name: golangci-lint
+        if: runner.os == 'Windows'
+        uses: golangci/golangci-lint-action@v3.7.0
+        env:
+          nofuture: out-format
+        with:
+          args: "--%nofuture% colored-line-number --timeout 5m"
+
+      - name: generate and test
+        run: |
+            go test -race -cover ./...

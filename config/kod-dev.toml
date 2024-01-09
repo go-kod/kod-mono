@@ -1,0 +1,10 @@
+[kod]
+name = "kod-mono"
+version = "1.0.0"
+env = "dev"
+
+["github.com/go-kod/kod/Main"]
+http = { address = ":9527" }
+uptrace = { dsn = "http://project2_secret_token@localhost:14318?grpc=14317", debug = false }
+pyroscope = { serverAddress = "http://localhost:4040" }
+etcdv3 = { endpoints = ["localhost:2379"] }
