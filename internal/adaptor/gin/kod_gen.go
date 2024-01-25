@@ -7,16 +7,16 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod/core/interceptor"
+	"github.com/go-kod/kod/interceptor"
 	"reflect"
 )
 
 func init() {
-	kod.Register(kod.Registration{
+	kod.Register(&kod.Registration{
 		Name:  "github.com/go-kod/kod-mono/internal/adaptor/gin/Controller",
 		Iface: reflect.TypeOf((*Controller)(nil)).Elem(),
 		Impl:  reflect.TypeOf(controller{}),
-		Refs:  `⟦7700b07a:KoDeDgE:github.com/go-kod/kod-mono/internal/adaptor/gin/Controller→github.com/go-kod/kod-mono/internal/app/example/Service⟧`,
+		Refs:  `⟦9ddbf0a1:KoDeDgE:github.com/go-kod/kod-mono/internal/adaptor/gin/Controller→github.com/go-kod/kod-mono/internal/app/example/Service⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			var interceptors []kod.Interceptor
 			if h, ok := info.Impl.(interface{ Interceptors() []kod.Interceptor }); ok {
@@ -27,7 +27,6 @@ func init() {
 				impl:        info.Impl.(Controller),
 				interceptor: interceptor.Chain(interceptors),
 				name:        info.Name,
-				caller:      info.Caller,
 			}
 		},
 	})
@@ -41,7 +40,6 @@ var _ kod.InstanceOf[Controller] = (*controller)(nil)
 type controller_local_stub struct {
 	impl        Controller
 	name        string
-	caller      string
 	interceptor kod.Interceptor
 }
 
@@ -49,13 +47,6 @@ type controller_local_stub struct {
 var _ Controller = (*controller_local_stub)(nil)
 
 func (s controller_local_stub) UniqueID(a0 *gin.Context) {
-	var err error
-	ctx := a0.Request.Context()
-	info := kod.CallInfo{
-		Component:  s.name,
-		FullMethod: "github.com/go-kod/kod-mono/internal/adaptor/gin/Controller.UniqueID",
-		Caller:     s.caller,
-	}
 
 	if s.interceptor == nil {
 		s.impl.UniqueID(a0)
@@ -65,10 +56,17 @@ func (s controller_local_stub) UniqueID(a0 *gin.Context) {
 	call := func(ctx context.Context, info kod.CallInfo, req, res []any) (err error) {
 		a0.Request = a0.Request.WithContext(ctx)
 		s.impl.UniqueID(a0)
-
 		return
 	}
 
+	info := kod.CallInfo{
+		Component:  s.name,
+		FullMethod: "github.com/go-kod/kod-mono/internal/adaptor/gin/Controller.UniqueID",
+		Method:     "UniqueID",
+	}
+
+	var err error
+	ctx := a0.Request.Context()
 	err = s.interceptor(ctx, info, []any{a0}, []any{}, call)
 	if err != nil {
 		a0.Error(err)

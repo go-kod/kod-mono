@@ -5,6 +5,7 @@
 //
 //	mockgen -source internal/app/example/kod_gen_interface.go -destination internal/app/example/kod_gen_mock.go -package example
 //
+
 // Package example is a generated GoMock package.
 package example
 

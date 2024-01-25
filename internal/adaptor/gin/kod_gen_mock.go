@@ -5,6 +5,7 @@
 //
 //	mockgen -source internal/adaptor/gin/kod_gen_interface.go -destination internal/adaptor/gin/kod_gen_mock.go -package gin
 //
+
 // Package gin is a generated GoMock package.
 package gin
 

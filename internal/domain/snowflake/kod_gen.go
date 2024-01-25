@@ -6,16 +6,16 @@ package snowflake
 import (
 	"context"
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod/core/interceptor"
+	"github.com/go-kod/kod/interceptor"
 	"reflect"
 )
 
 func init() {
-	kod.Register(kod.Registration{
+	kod.Register(&kod.Registration{
 		Name:  "github.com/go-kod/kod-mono/internal/domain/snowflake/Service",
 		Iface: reflect.TypeOf((*Service)(nil)).Elem(),
 		Impl:  reflect.TypeOf(service{}),
-		Refs:  `⟦1bb0d488:KoDeDgE:github.com/go-kod/kod-mono/internal/domain/snowflake/Service→github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository⟧`,
+		Refs:  `⟦2f0f2230:KoDeDgE:github.com/go-kod/kod-mono/internal/domain/snowflake/Service→github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			var interceptors []kod.Interceptor
 			if h, ok := info.Impl.(interface{ Interceptors() []kod.Interceptor }); ok {
@@ -26,7 +26,6 @@ func init() {
 				impl:        info.Impl.(Service),
 				interceptor: interceptor.Chain(interceptors),
 				name:        info.Name,
-				caller:      info.Caller,
 			}
 		},
 	})
@@ -40,7 +39,6 @@ var _ kod.InstanceOf[Service] = (*service)(nil)
 type service_local_stub struct {
 	impl        Service
 	name        string
-	caller      string
 	interceptor kod.Interceptor
 }
 
@@ -48,11 +46,6 @@ type service_local_stub struct {
 var _ Service = (*service_local_stub)(nil)
 
 func (s service_local_stub) Gen(ctx context.Context, a1 *GenReq) (r0 *GenRes, err error) {
-	info := kod.CallInfo{
-		Component:  s.name,
-		FullMethod: "github.com/go-kod/kod-mono/internal/domain/snowflake/Service.Gen",
-		Caller:     s.caller,
-	}
 
 	if s.interceptor == nil {
 		r0, err = s.impl.Gen(ctx, a1)
@@ -62,8 +55,13 @@ func (s service_local_stub) Gen(ctx context.Context, a1 *GenReq) (r0 *GenRes, er
 	call := func(ctx context.Context, info kod.CallInfo, req, res []any) (err error) {
 		r0, err = s.impl.Gen(ctx, a1)
 		res[0] = r0
-
 		return
+	}
+
+	info := kod.CallInfo{
+		Component:  s.name,
+		FullMethod: "github.com/go-kod/kod-mono/internal/domain/snowflake/Service.Gen",
+		Method:     "Gen",
 	}
 
 	err = s.interceptor(ctx, info, []any{a1}, []any{r0}, call)

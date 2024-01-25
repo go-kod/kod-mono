@@ -5,6 +5,7 @@
 //
 //	mockgen -source internal/infra/redis/kod_gen_interface.go -destination internal/infra/redis/kod_gen_mock.go -package redis
 //
+
 // Package redis is a generated GoMock package.
 package redis
 

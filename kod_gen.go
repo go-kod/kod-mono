@@ -6,16 +6,16 @@ package main
 import (
 	"context"
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod/core/interceptor"
+	"github.com/go-kod/kod/interceptor"
 	"reflect"
 )
 
 func init() {
-	kod.Register(kod.Registration{
+	kod.Register(&kod.Registration{
 		Name:  "github.com/go-kod/kod/Main",
 		Iface: reflect.TypeOf((*kod.Main)(nil)).Elem(),
 		Impl:  reflect.TypeOf(app{}),
-		Refs:  `⟦7446e71c:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/gin/Controller⟧`,
+		Refs:  `⟦3a803802:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/gin/Controller⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			var interceptors []kod.Interceptor
 			if h, ok := info.Impl.(interface{ Interceptors() []kod.Interceptor }); ok {
@@ -26,7 +26,6 @@ func init() {
 				impl:        info.Impl.(kod.Main),
 				interceptor: interceptor.Chain(interceptors),
 				name:        info.Name,
-				caller:      info.Caller,
 			}
 		},
 	})
@@ -40,7 +39,6 @@ var _ kod.InstanceOf[kod.Main] = (*app)(nil)
 type main_local_stub struct {
 	impl        kod.Main
 	name        string
-	caller      string
 	interceptor kod.Interceptor
 }
 

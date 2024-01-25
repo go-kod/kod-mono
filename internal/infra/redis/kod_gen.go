@@ -6,12 +6,12 @@ package redis
 import (
 	"context"
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod/core/interceptor"
+	"github.com/go-kod/kod/interceptor"
 	"reflect"
 )
 
 func init() {
-	kod.Register(kod.Registration{
+	kod.Register(&kod.Registration{
 		Name:  "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository",
 		Iface: reflect.TypeOf((*SnowflakeRepository)(nil)).Elem(),
 		Impl:  reflect.TypeOf(snowflake{}),
@@ -26,7 +26,6 @@ func init() {
 				impl:        info.Impl.(SnowflakeRepository),
 				interceptor: interceptor.Chain(interceptors),
 				name:        info.Name,
-				caller:      info.Caller,
 			}
 		},
 	})
@@ -40,7 +39,6 @@ var _ kod.InstanceOf[SnowflakeRepository] = (*snowflake)(nil)
 type snowflakeRepository_local_stub struct {
 	impl        SnowflakeRepository
 	name        string
-	caller      string
 	interceptor kod.Interceptor
 }
 
@@ -48,11 +46,6 @@ type snowflakeRepository_local_stub struct {
 var _ SnowflakeRepository = (*snowflakeRepository_local_stub)(nil)
 
 func (s snowflakeRepository_local_stub) GetUniqId(ctx context.Context) (r0 int64, err error) {
-	info := kod.CallInfo{
-		Component:  s.name,
-		FullMethod: "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository.GetUniqId",
-		Caller:     s.caller,
-	}
 
 	if s.interceptor == nil {
 		r0, err = s.impl.GetUniqId(ctx)
@@ -62,8 +55,13 @@ func (s snowflakeRepository_local_stub) GetUniqId(ctx context.Context) (r0 int64
 	call := func(ctx context.Context, info kod.CallInfo, req, res []any) (err error) {
 		r0, err = s.impl.GetUniqId(ctx)
 		res[0] = r0
-
 		return
+	}
+
+	info := kod.CallInfo{
+		Component:  s.name,
+		FullMethod: "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository.GetUniqId",
+		Method:     "GetUniqId",
 	}
 
 	err = s.interceptor(ctx, info, []any{}, []any{r0}, call)
