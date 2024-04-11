@@ -12,14 +12,16 @@ import (
 
 func init() {
 	kod.Register(&kod.Registration{
-		Name:  "github.com/go-kod/kod-mono/internal/app/example/Service",
-		Iface: reflect.TypeOf((*Service)(nil)).Elem(),
-		Impl:  reflect.TypeOf(component{}),
-		Refs:  `⟦2cd73ff4:KoDeDgE:github.com/go-kod/kod-mono/internal/app/example/Service→github.com/go-kod/kod-mono/internal/domain/snowflake/Service⟧`,
+		Name:      "github.com/go-kod/kod-mono/internal/app/example/Service",
+		Interface: reflect.TypeOf((*Service)(nil)).Elem(),
+		Impl:      reflect.TypeOf(component{}),
+		Refs:      `⟦2cd73ff4:KoDeDgE:github.com/go-kod/kod-mono/internal/app/example/Service→github.com/go-kod/kod-mono/internal/domain/snowflake/Service⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
-			var interceptors []kod.Interceptor
-			if h, ok := info.Impl.(interface{ Interceptors() []kod.Interceptor }); ok {
-				interceptors = h.Interceptors()
+			interceptors := info.Interceptors
+			if h, ok := info.Impl.(interface {
+				Interceptors() []interceptor.Interceptor
+			}); ok {
+				interceptors = append(interceptors, h.Interceptors()...)
 			}
 
 			return service_local_stub{
@@ -39,7 +41,7 @@ var _ kod.InstanceOf[Service] = (*component)(nil)
 type service_local_stub struct {
 	impl        Service
 	name        string
-	interceptor kod.Interceptor
+	interceptor interceptor.Interceptor
 }
 
 // Check that service_local_stub implements the Service interface.
@@ -52,13 +54,14 @@ func (s service_local_stub) UniqueID(ctx context.Context, a1 *TestReq) (r0 *Test
 		return
 	}
 
-	call := func(ctx context.Context, info kod.CallInfo, req, res []any) (err error) {
+	call := func(ctx context.Context, info interceptor.CallInfo, req, res []any) (err error) {
 		r0, err = s.impl.UniqueID(ctx, a1)
 		res[0] = r0
 		return
 	}
 
-	info := kod.CallInfo{
+	info := interceptor.CallInfo{
+		Impl:       s.impl,
 		Component:  s.name,
 		FullMethod: "github.com/go-kod/kod-mono/internal/app/example/Service.UniqueID",
 		Method:     "UniqueID",

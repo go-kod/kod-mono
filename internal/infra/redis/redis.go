@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod-ext/client/kredis"
+	"github.com/go-kod/kod/ext/client/kredis"
 )
 
 type snowflake struct {

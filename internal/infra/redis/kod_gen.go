@@ -12,14 +12,16 @@ import (
 
 func init() {
 	kod.Register(&kod.Registration{
-		Name:  "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository",
-		Iface: reflect.TypeOf((*SnowflakeRepository)(nil)).Elem(),
-		Impl:  reflect.TypeOf(snowflake{}),
-		Refs:  ``,
+		Name:      "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository",
+		Interface: reflect.TypeOf((*SnowflakeRepository)(nil)).Elem(),
+		Impl:      reflect.TypeOf(snowflake{}),
+		Refs:      ``,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
-			var interceptors []kod.Interceptor
-			if h, ok := info.Impl.(interface{ Interceptors() []kod.Interceptor }); ok {
-				interceptors = h.Interceptors()
+			interceptors := info.Interceptors
+			if h, ok := info.Impl.(interface {
+				Interceptors() []interceptor.Interceptor
+			}); ok {
+				interceptors = append(interceptors, h.Interceptors()...)
 			}
 
 			return snowflakeRepository_local_stub{
@@ -39,7 +41,7 @@ var _ kod.InstanceOf[SnowflakeRepository] = (*snowflake)(nil)
 type snowflakeRepository_local_stub struct {
 	impl        SnowflakeRepository
 	name        string
-	interceptor kod.Interceptor
+	interceptor interceptor.Interceptor
 }
 
 // Check that snowflakeRepository_local_stub implements the SnowflakeRepository interface.
@@ -52,13 +54,14 @@ func (s snowflakeRepository_local_stub) GetUniqId(ctx context.Context) (r0 int64
 		return
 	}
 
-	call := func(ctx context.Context, info kod.CallInfo, req, res []any) (err error) {
+	call := func(ctx context.Context, info interceptor.CallInfo, req, res []any) (err error) {
 		r0, err = s.impl.GetUniqId(ctx)
 		res[0] = r0
 		return
 	}
 
-	info := kod.CallInfo{
+	info := interceptor.CallInfo{
+		Impl:       s.impl,
 		Component:  s.name,
 		FullMethod: "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository.GetUniqId",
 		Method:     "GetUniqId",

@@ -12,14 +12,16 @@ import (
 
 func init() {
 	kod.Register(&kod.Registration{
-		Name:  "github.com/go-kod/kod/Main",
-		Iface: reflect.TypeOf((*kod.Main)(nil)).Elem(),
-		Impl:  reflect.TypeOf(app{}),
-		Refs:  `⟦3a803802:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/gin/Controller⟧`,
+		Name:      "github.com/go-kod/kod/Main",
+		Interface: reflect.TypeOf((*kod.Main)(nil)).Elem(),
+		Impl:      reflect.TypeOf(app{}),
+		Refs:      `⟦3a803802:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/gin/Controller⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
-			var interceptors []kod.Interceptor
-			if h, ok := info.Impl.(interface{ Interceptors() []kod.Interceptor }); ok {
-				interceptors = h.Interceptors()
+			interceptors := info.Interceptors
+			if h, ok := info.Impl.(interface {
+				Interceptors() []interceptor.Interceptor
+			}); ok {
+				interceptors = append(interceptors, h.Interceptors()...)
 			}
 
 			return main_local_stub{
@@ -39,7 +41,7 @@ var _ kod.InstanceOf[kod.Main] = (*app)(nil)
 type main_local_stub struct {
 	impl        kod.Main
 	name        string
-	interceptor kod.Interceptor
+	interceptor interceptor.Interceptor
 }
 
 // Check that main_local_stub implements the kod.Main interface.

@@ -7,11 +7,15 @@ import (
 	"net/http"
 
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod-ext/client/kpyroscope"
-	"github.com/go-kod/kod-ext/client/kuptrace"
-	"github.com/go-kod/kod-ext/registry/etcdv3"
-	kgin "github.com/go-kod/kod-ext/server/kgin"
 	"github.com/go-kod/kod-mono/internal/adaptor/gin"
+	"github.com/go-kod/kod/ext/client/kpyroscope"
+	"github.com/go-kod/kod/ext/client/kuptrace"
+	"github.com/go-kod/kod/ext/registry/etcdv3"
+	kgin "github.com/go-kod/kod/ext/server/kgin"
+	"github.com/go-kod/kod/interceptor/kaccesslog"
+	"github.com/go-kod/kod/interceptor/kmetric"
+	"github.com/go-kod/kod/interceptor/krecovery"
+	"github.com/go-kod/kod/interceptor/ktrace"
 	"github.com/grafana/pyroscope-go"
 	"github.com/samber/lo"
 )
@@ -68,7 +72,7 @@ type config struct {
 //	@version		2.0
 //	@description	This is a sample server.
 //	@termsOfService	http://swagger.io/terms/
-//	@host			localhost:9257
+//	@host			localhost:9527
 //	@schemes		http
 
 //	@contact.name	API Support
@@ -87,5 +91,10 @@ func main() {
 		}
 
 		return errors.Join(err)
-	}))
+	}, kod.WithInterceptors(
+		krecovery.Interceptor(),
+		kmetric.Interceptor(),
+		ktrace.Interceptor(),
+		kaccesslog.Interceptor(),
+	)))
 }

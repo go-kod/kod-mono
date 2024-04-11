@@ -12,7 +12,7 @@ package gin
 import (
 	reflect "reflect"
 
-	kgin "github.com/go-kod/kod-ext/server/kgin"
+	kgin "github.com/go-kod/kod/ext/server/kgin"
 	gomock "go.uber.org/mock/gomock"
 )
 

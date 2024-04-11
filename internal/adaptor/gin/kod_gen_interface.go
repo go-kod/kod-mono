@@ -3,7 +3,7 @@
 package gin
 
 import (
-	gin "github.com/go-kod/kod-ext/server/kgin"
+	gin "github.com/go-kod/kod/ext/server/kgin"
 )
 
 // controller is a component that implements Controller.
