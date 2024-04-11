@@ -6,7 +6,7 @@ definitions:
         description: 唯一标识
         type: string
     type: object
-host: localhost:9257
+host: localhost:9527
 info:
   contact:
     email: support@swagger.io

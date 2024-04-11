@@ -18,7 +18,7 @@
         },
         "version": "2.0"
     },
-    "host": "localhost:9257",
+    "host": "localhost:9527",
     "basePath": "/",
     "paths": {
         "/uniqueId": {

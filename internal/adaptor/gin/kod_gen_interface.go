@@ -3,7 +3,7 @@
 package gin
 
 import (
-	gin "github.com/go-kod/kod/ext/server/kgin"
+	kgin "github.com/go-kod/kod/ext/server/kgin"
 )
 
 // controller is a component that implements Controller.
@@ -15,5 +15,5 @@ type Controller interface {
 	// @Param			request	query		example.TestReq	true	"请求参数"
 	// @Success		200		{object}	example.TestRes	"ok"
 	// @Router			/uniqueId [get]
-	UniqueID(ctx *gin.Context)
+	UniqueID(ctx *kgin.Context)
 }

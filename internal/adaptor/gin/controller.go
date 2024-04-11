@@ -4,11 +4,9 @@ import (
 	"net/http"
 
 	"github.com/go-kod/kod"
-	gin "github.com/go-kod/kod/ext/server/kgin"
-	kgin "github.com/go-kod/kod/ext/server/kgin"
 	"github.com/go-kod/kod-mono/docs"
 	"github.com/go-kod/kod-mono/internal/app/example"
-
+	kgin "github.com/go-kod/kod/ext/server/kgin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"google.golang.org/grpc/status"
@@ -34,7 +32,7 @@ func Register(s *kgin.Server, c Controller) {
 // @Param			request	query		example.TestReq	true	"请求参数"
 // @Success		200		{object}	example.TestRes	"ok"
 // @Router			/uniqueId [get]
-func (c *controller) UniqueID(ctx *gin.Context) {
+func (c *controller) UniqueID(ctx *kgin.Context) {
 	req := &example.TestReq{
 		Name: "",
 	}
