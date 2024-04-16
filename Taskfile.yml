@@ -22,7 +22,7 @@ tasks:
   generate:docs:
     desc: Run docs generate
     cmds:
-      - swag init
+      - swag init -g ./cmd/server/main.go
     deps: [install:swag]
 
   lint:check:
@@ -62,7 +62,7 @@ tasks:
   run:air:
     desc: Runs air
     cmds:
-      - KOD_CONFIG=./config/kod-dev.toml air
+      - KOD_CONFIG=./config/kod-dev.toml air -build.cmd "go build -o tmp/main ./cmd/server/"
     deps: [install:air, install:mod]
 
   install:air:

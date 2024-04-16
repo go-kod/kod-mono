@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "mono",
+            "name": "server",
             "type": "go",
             "request": "launch",
             "mode": "auto",
@@ -14,7 +14,7 @@
             "env": {
                 "KOD_CONFIG": "${workspaceFolder}/config/kod-dev.toml",
             },
-            "program": "."
+            "program": "./cmd/server/"
         }
     ]
 }

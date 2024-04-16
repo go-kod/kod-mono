@@ -1,5 +1,5 @@
 [kod]
-name = "kod-mono"
+name = "server"
 version = "1.0.0"
 env = "dev"
 
