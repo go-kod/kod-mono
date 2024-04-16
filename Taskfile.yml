@@ -62,7 +62,7 @@ tasks:
   run:air:
     desc: Runs air
     cmds:
-      - KOD_CONFIG=./config/kod-dev.toml air -build.cmd "go build -o tmp/main ./cmd/server/"
+      - KOD_CONFIG=./config/server/dev.toml air -build.cmd "go build -o tmp/main ./cmd/server/"
     deps: [install:air, install:mod]
 
   install:air:

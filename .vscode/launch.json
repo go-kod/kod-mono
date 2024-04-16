@@ -12,7 +12,7 @@
             "backend": "default",
             "cwd": "${workspaceFolder}",
             "env": {
-                "KOD_CONFIG": "${workspaceFolder}/config/kod-dev.toml",
+                "KOD_CONFIG": "${workspaceFolder}/config/server/dev.toml",
             },
             "program": "./cmd/server/"
         }
