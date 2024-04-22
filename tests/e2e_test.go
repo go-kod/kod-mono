@@ -2,8 +2,6 @@ package tests
 
 import (
 	"context"
-	"errors"
-	"net/http"
 	"testing"
 	"time"
 
@@ -20,11 +18,7 @@ import (
 func TestE2ESuites(t *testing.T) {
 	err := kod.Run(context.Background(), func(ctx context.Context, s *server.Server) error {
 		go func() {
-			err := s.Run(ctx)
-			if errors.Is(err, http.ErrServerClosed) {
-				return
-			}
-			lo.Must0(err)
+			lo.Must0(s.Run(ctx))
 		}()
 
 		// wait for server start

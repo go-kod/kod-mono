@@ -2,7 +2,9 @@ package server
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"net/http"
 
 	"github.com/go-kod/kod"
 	"github.com/go-kod/kod/ext/client/kpyroscope"
@@ -42,6 +44,10 @@ func (s *Server) Init(ctx context.Context) error {
 
 func (s *Server) Run(ctx context.Context) error {
 	err := s.server.Run(ctx)
+	if errors.Is(err, http.ErrServerClosed) {
+		return nil
+	}
+
 	if err != nil {
 		return fmt.Errorf("failed to run server: %w", err)
 	}

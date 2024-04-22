@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"errors"
-	"net/http"
 
 	"github.com/go-kod/kod"
 	"github.com/go-kod/kod-mono/internal/adaptor/server"
@@ -31,12 +29,7 @@ import (
 // @BasePath	/
 func main() {
 	lo.Must0(kod.Run(context.Background(), func(ctx context.Context, s *server.Server) error {
-		err := s.Run(ctx)
-		if errors.Is(err, http.ErrServerClosed) {
-			return nil
-		}
-
-		return errors.Join(err)
+		return s.Run(ctx)
 	}, kod.WithInterceptors(
 		krecovery.Interceptor(),
 		kmetric.Interceptor(),
