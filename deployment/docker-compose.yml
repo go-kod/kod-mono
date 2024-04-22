@@ -130,8 +130,6 @@ services:
       - ./grafana/custom.ini:/etc/grafana/grafana.ini
     ports:
       - '3000:3000'
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
 
   pyroscope:
     image: grafana/pyroscope:latest

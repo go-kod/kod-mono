@@ -1,14 +1,11 @@
-package gin
+package server
 
 import (
 	"net/http"
 
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod-mono/docs"
 	"github.com/go-kod/kod-mono/internal/app/example"
 	kgin "github.com/go-kod/kod/ext/server/kgin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	"google.golang.org/grpc/status"
 )
 
@@ -19,9 +16,6 @@ type controller struct {
 }
 
 func Register(s *kgin.Server, c Controller) {
-	docs.SwaggerInfo.BasePath = "/"
-
-	s.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.NewHandler()))
 	s.GET("/uniqueId", c.UniqueID)
 }
 

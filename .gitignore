@@ -67,3 +67,4 @@ kod-mono
 tmp/
 .task/
 __debug_bin*
+default.etcd/

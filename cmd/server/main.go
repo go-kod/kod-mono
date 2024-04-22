@@ -3,70 +3,16 @@ package main
 import (
 	"context"
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod-mono/internal/adaptor/gin"
-	"github.com/go-kod/kod/ext/client/kpyroscope"
-	"github.com/go-kod/kod/ext/client/kuptrace"
-	"github.com/go-kod/kod/ext/registry/etcdv3"
-	kgin "github.com/go-kod/kod/ext/server/kgin"
+	"github.com/go-kod/kod-mono/internal/adaptor/server"
 	"github.com/go-kod/kod/interceptor/kaccesslog"
 	"github.com/go-kod/kod/interceptor/kmetric"
 	"github.com/go-kod/kod/interceptor/krecovery"
 	"github.com/go-kod/kod/interceptor/ktrace"
-	"github.com/grafana/pyroscope-go"
 	"github.com/samber/lo"
 )
-
-type app struct {
-	kod.Implements[kod.Main]
-	kod.WithConfig[config]
-
-	server    *kgin.Server
-	pyroscope *pyroscope.Profiler
-	uptrace   *kuptrace.Client
-
-	gin kod.Ref[gin.Controller]
-}
-
-func (s *app) Init(ctx context.Context) error {
-	s.uptrace = lo.Must(s.Config().Uptrace.Build(ctx))
-
-	s.pyroscope = lo.Must(s.Config().Pyroscope.Build(ctx))
-
-	s.server = s.Config().HTTP.Build().WithRegistry(lo.Must(s.Config().Etcdv3.Build(ctx)))
-	gin.Register(s.server, s.gin.Get())
-
-	return nil
-}
-
-func (s *app) Stop(ctx context.Context) error {
-	err := s.uptrace.Stop(ctx)
-	if err != nil {
-		return fmt.Errorf("failed to stop uptrace: %w", err)
-	}
-
-	err = s.pyroscope.Stop()
-	if err != nil {
-		return fmt.Errorf("failed to stop pyroscope: %w", err)
-	}
-
-	err = s.server.GracefulStop(ctx)
-	if err != nil {
-		return fmt.Errorf("failed to stop server: %w", err)
-	}
-
-	return nil
-}
-
-type config struct {
-	HTTP      kgin.Config       `toml:"http"`
-	Uptrace   kuptrace.Config   `toml:"uptrace"`
-	Pyroscope kpyroscope.Config `toml:"pyroscope"`
-	Etcdv3    etcdv3.Config     `toml:"etcdv3"`
-}
 
 //	@title			Swagger Example API
 //	@version		2.0
@@ -84,8 +30,8 @@ type config struct {
 
 // @BasePath	/
 func main() {
-	lo.Must0(kod.Run(context.Background(), func(ctx context.Context, s *app) error {
-		err := s.server.Run(ctx)
+	lo.Must0(kod.Run(context.Background(), func(ctx context.Context, s *server.Server) error {
+		err := s.Run(ctx)
 		if errors.Is(err, http.ErrServerClosed) {
 			return nil
 		}

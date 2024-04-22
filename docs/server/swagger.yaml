@@ -1,0 +1,40 @@
+basePath: /
+definitions:
+  example.TestRes:
+    properties:
+      uuid:
+        description: 唯一标识
+        type: string
+    type: object
+host: localhost:9527
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "2.0"
+paths:
+  /uniqueId:
+    get:
+      description: get unique ID
+      parameters:
+      - in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/example.TestRes'
+      summary: Get a Unique ID
+schemes:
+- http
+swagger: "2.0"
