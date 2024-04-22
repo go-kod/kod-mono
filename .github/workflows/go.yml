@@ -13,23 +13,13 @@ jobs:
       fail-fast: false
       matrix:
         version: ["stable"]
-    services:
-          # Label used to access the service container
-          redis:
-            # Docker Hub image
-            image: redis
-            # Set health checks to wait until redis has started
-            options: >-
-              --health-cmd "redis-cli ping"
-              --health-interval 10s
-              --health-timeout 5s
-              --health-retries 5
-            ports:
-              # Maps port 6379 on service container to the host
-              - 6379:6379
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: docker-compose
+        run: docker-compose -f deployment/docker-compose.yml up -d
 
       - name: Set up Go
         uses: actions/setup-go@v5
