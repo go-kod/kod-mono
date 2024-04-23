@@ -41,6 +41,18 @@ jobs:
         with:
           args: "--%nofuture% colored-line-number --timeout 5m"
 
+      - name: Install Task
+        uses: arduino/setup-task@v1
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: generate and test
         run: |
-            go test -race -cover ./...
+            task github-action
+
+      - uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          files: ./coverage.out # optional

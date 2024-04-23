@@ -3,6 +3,9 @@
 package server
 
 import (
+	"context"
+
+	snowflakev1 "github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
 	kgin "github.com/go-kod/kod/ext/server/kgin"
 )
 
@@ -16,4 +19,9 @@ type Controller interface {
 	// @Success		200		{object}	example.TestRes	"ok"
 	// @Router			/uniqueId [get]
 	UniqueID(ctx *kgin.Context)
+}
+
+// grpcImpl is a component that implements GrpcController.
+type GrpcController interface {
+	UniqueId(ctx context.Context, req *snowflakev1.UniqueIdRequest) (*snowflakev1.UniqueIdResponse, error)
 }

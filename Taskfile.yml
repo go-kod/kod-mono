@@ -7,6 +7,11 @@ tasks:
       - task: generate:docs
       - task: generate:kod
 
+  github-action:
+    cmds:
+      - task
+      - task: test:coverage
+
   generate:struct2interface:
     desc: Runs kod struct2interface
     cmds:
@@ -48,7 +53,7 @@ tasks:
   test:unit:
     desc: Runs test
     cmd: |
-        go test -race -cover -coverprofile=coverage.out -covermode=atomic ./internal/...
+        GOEXPERIMENT=nocoverageredesign go test -race -cover -coverprofile=coverage.out -covermode=atomic ./... -coverpkg=./internal/...
         cat coverage.out| grep -v "kod_gen" > coverage.out.tmp
         mv coverage.out.tmp coverage.out
 

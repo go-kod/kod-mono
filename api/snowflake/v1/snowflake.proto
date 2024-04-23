@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.douyu.snowflake.v1";
+option java_outer_classname = "SnowflakeProtoV1";
+option go_package = "github.com/go-kod/kod-mono/gen/go/api/snowflake/v1;snowflakev1";
+
+package snowflake.v1;
+
+// The snowflake service definition.
+service SnowflakeService {
+  // Sends a UniqueId request
+  rpc UniqueId (UniqueIdRequest) returns (UniqueIdResponse) {}
+}
+
+// The request message containing the user's name.
+message UniqueIdRequest {
+  // name ...
+  string name = 1;
+}
+
+// The response message containing the greetings
+message UniqueIdResponse {
+  // Uuid
+  string uuid = 1;
+}

@@ -7,10 +7,12 @@ import (
 	"net/http"
 
 	"github.com/go-kod/kod"
+	snowflakev1 "github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
 	"github.com/go-kod/kod/ext/client/kpyroscope"
 	"github.com/go-kod/kod/ext/client/kuptrace"
 	"github.com/go-kod/kod/ext/registry/etcdv3"
 	kgin "github.com/go-kod/kod/ext/server/kgin"
+	"github.com/go-kod/kod/ext/server/kgrpc"
 	"github.com/grafana/pyroscope-go"
 	"github.com/samber/lo"
 	swaggerFiles "github.com/swaggo/files"
@@ -22,10 +24,12 @@ type Server struct {
 	kod.WithConfig[config]
 
 	server    *kgin.Server
+	grpc      *kgrpc.Server
 	pyroscope *pyroscope.Profiler
 	uptrace   *kuptrace.Client
 
-	example kod.Ref[Controller]
+	example  kod.Ref[Controller]
+	grpcImpl kod.Ref[GrpcController]
 }
 
 func (s *Server) Init(ctx context.Context) error {
@@ -33,16 +37,25 @@ func (s *Server) Init(ctx context.Context) error {
 
 	s.pyroscope = lo.Must(s.Config().Pyroscope.Build(ctx))
 
-	s.server = s.Config().HTTP.Build().WithRegistry(lo.Must(s.Config().Etcdv3.Build(ctx)))
-	Register(s.server, s.example.Get())
+	registry := lo.Must(s.Config().Etcdv3.Build(ctx))
+
+	s.server = s.Config().HTTP.Build().WithRegistry(registry)
+	registerHTTP(s.server, s.example.Get())
 
 	// Swagger
 	s.server.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.NewHandler()))
+
+	s.grpc = s.Config().Grpc.Build().WithRegistry(registry)
+	snowflakev1.RegisterSnowflakeServiceServer(s.grpc, s.grpcImpl.Get())
 
 	return nil
 }
 
 func (s *Server) Run(ctx context.Context) error {
+	go func() {
+		lo.Must0(s.grpc.Run(ctx))
+	}()
+
 	err := s.server.Run(ctx)
 	if errors.Is(err, http.ErrServerClosed) {
 		return nil
@@ -71,11 +84,17 @@ func (s *Server) Stop(ctx context.Context) error {
 		return fmt.Errorf("failed to stop server: %w", err)
 	}
 
+	err = s.grpc.GracefulStop(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to stop grpc: %w", err)
+	}
+
 	return nil
 }
 
 type config struct {
 	HTTP      kgin.Config       `toml:"http"`
+	Grpc      kgrpc.Config      `toml:"grpc"`
 	Uptrace   kuptrace.Config   `toml:"uptrace"`
 	Pyroscope kpyroscope.Config `toml:"pyroscope"`
 	Etcdv3    etcdv3.Config     `toml:"etcdv3"`

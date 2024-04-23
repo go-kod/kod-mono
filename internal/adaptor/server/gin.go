@@ -15,7 +15,7 @@ type controller struct {
 	comp kod.Ref[example.Service]
 }
 
-func Register(s *kgin.Server, c Controller) {
+func registerHTTP(s *kgin.Server, c Controller) {
 	s.GET("/uniqueId", c.UniqueID)
 }
 

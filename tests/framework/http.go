@@ -5,70 +5,62 @@ import (
 	"encoding/json"
 	"time"
 
+	"github.com/expr-lang/expr"
 	"github.com/go-resty/resty/v2"
-	"github.com/google/cel-go/cel"
 	"github.com/onsi/ginkgo/v2"
 	"github.com/stretchr/testify/require"
 )
 
 type HTTPTestCase struct {
-	BaseURL   string
-	Method    string
-	Path      string
-	Body      string
-	Timeout   time.Duration
-	Header    map[string]string
-	Query     string
-	ExpectCEL string
+	BaseURL string
+	Method  string
+	Path    string
+	Body    string
+	Header  map[string]string
+	Query   string
+	Timeout time.Duration
+
+	Expect string
 }
 
 // RunHTTPTestCase runs a test case against the given handler.
-func RunHTTPTestCase(htc HTTPTestCase) {
-	ginkgoT := ginkgo.GinkgoT()
+func RunHTTPTestCase(tc HTTPTestCase) {
+	t := ginkgo.GinkgoT()
 
-	if htc.Timeout == 0 {
-		htc.Timeout = time.Second
+	if tc.Timeout == 0 {
+		tc.Timeout = time.Second
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), htc.Timeout)
+	ctx, cancel := context.WithTimeout(context.Background(), tc.Timeout)
 	defer cancel()
 
-	req := resty.New().SetBaseURL(htc.BaseURL).R()
-	req.SetQueryString(htc.Query)
-	req.SetBody(htc.Body)
-	req.SetHeaders(htc.Header)
+	req := resty.New().SetBaseURL(tc.BaseURL).R()
+	req.SetQueryString(tc.Query)
+	req.SetBody(tc.Body)
+	req.SetHeaders(tc.Header)
 	req.SetContext(ctx)
 
-	res, err := req.Execute(htc.Method, htc.Path)
+	res, err := req.Execute(tc.Method, tc.Path)
 
-	require.Nil(ginkgoT, err, "error: %s", err)
+	require.Nil(t, err, "error: %s", err)
 
-	if htc.ExpectCEL != "" {
-		env, err := cel.NewEnv(
-			cel.Variable("status", cel.IntType),
-			cel.Variable("header", cel.MapType(cel.StringType, cel.ListType(cel.StringType))),
-			cel.Variable("response", cel.MapType(cel.StringType, cel.AnyType)),
-		)
-		require.Nil(ginkgoT, err)
-
-		ast, issues := env.Compile(htc.ExpectCEL)
-
-		require.False(ginkgoT, issues != nil && issues.Err() != nil, "type-check error: %s", issues.Err())
-
-		prg, err := env.Program(ast)
-		require.Nil(ginkgoT, err)
+	if tc.Expect != "" {
 
 		var resMap map[string]interface{}
 		err = json.Unmarshal([]byte(res.String()), &resMap)
-		require.Nil(ginkgoT, err)
+		require.Nil(t, err)
 
 		data := map[string]interface{}{
-			"status":   res.StatusCode(),
-			"header":   res.Header(),
-			"response": resMap,
+			"status": res.StatusCode(),
+			"header": res.Header(),
+			"body":   resMap,
 		}
-		val, _, err := prg.Eval(data)
-		require.Nil(ginkgoT, err, "data", data)
-		require.True(ginkgoT, val.Value().(bool), "data", data)
+
+		program, err := expr.Compile(tc.Expect, expr.Env(data))
+		require.Nil(t, err, "error: %s", err)
+
+		val, err := expr.Run(program, data)
+		require.Nil(t, err, "data", data)
+		require.True(t, val.(bool), "data", data)
 	}
 }

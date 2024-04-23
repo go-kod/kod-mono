@@ -10,8 +10,10 @@
 package server
 
 import (
+	context "context"
 	reflect "reflect"
 
+	snowflakev1 "github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
 	kgin "github.com/go-kod/kod/ext/server/kgin"
 	gomock "go.uber.org/mock/gomock"
 )
@@ -49,4 +51,42 @@ func (m *MockController) UniqueID(ctx *kgin.Context) {
 func (mr *MockControllerMockRecorder) UniqueID(ctx any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UniqueID", reflect.TypeOf((*MockController)(nil).UniqueID), ctx)
+}
+
+// MockGrpcController is a mock of GrpcController interface.
+type MockGrpcController struct {
+	ctrl     *gomock.Controller
+	recorder *MockGrpcControllerMockRecorder
+}
+
+// MockGrpcControllerMockRecorder is the mock recorder for MockGrpcController.
+type MockGrpcControllerMockRecorder struct {
+	mock *MockGrpcController
+}
+
+// NewMockGrpcController creates a new mock instance.
+func NewMockGrpcController(ctrl *gomock.Controller) *MockGrpcController {
+	mock := &MockGrpcController{ctrl: ctrl}
+	mock.recorder = &MockGrpcControllerMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockGrpcController) EXPECT() *MockGrpcControllerMockRecorder {
+	return m.recorder
+}
+
+// UniqueId mocks base method.
+func (m *MockGrpcController) UniqueId(ctx context.Context, req *snowflakev1.UniqueIdRequest) (*snowflakev1.UniqueIdResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UniqueId", ctx, req)
+	ret0, _ := ret[0].(*snowflakev1.UniqueIdResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UniqueId indicates an expected call of UniqueId.
+func (mr *MockGrpcControllerMockRecorder) UniqueId(ctx, req any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UniqueId", reflect.TypeOf((*MockGrpcController)(nil).UniqueId), ctx, req)
 }
