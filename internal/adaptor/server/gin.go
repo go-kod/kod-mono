@@ -9,13 +9,13 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-type controller struct {
-	kod.Implements[Controller]
+type ginImpl struct {
+	kod.Implements[GinController]
 
 	comp kod.Ref[example.Service]
 }
 
-func registerHTTP(s *kgin.Server, c Controller) {
+func registerHTTP(s *kgin.Server, c GinController) {
 	s.GET("/uniqueId", c.UniqueID)
 }
 
@@ -26,7 +26,7 @@ func registerHTTP(s *kgin.Server, c Controller) {
 // @Param			request	query		example.TestReq	true	"请求参数"
 // @Success		200		{object}	example.TestRes	"ok"
 // @Router			/uniqueId [get]
-func (c *controller) UniqueID(ctx *kgin.Context) {
+func (c *ginImpl) UniqueID(ctx *kgin.Context) {
 	req := &example.TestReq{
 		Name: "",
 	}

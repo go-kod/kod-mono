@@ -18,39 +18,39 @@ import (
 	gomock "go.uber.org/mock/gomock"
 )
 
-// MockController is a mock of Controller interface.
-type MockController struct {
+// MockGinController is a mock of GinController interface.
+type MockGinController struct {
 	ctrl     *gomock.Controller
-	recorder *MockControllerMockRecorder
+	recorder *MockGinControllerMockRecorder
 }
 
-// MockControllerMockRecorder is the mock recorder for MockController.
-type MockControllerMockRecorder struct {
-	mock *MockController
+// MockGinControllerMockRecorder is the mock recorder for MockGinController.
+type MockGinControllerMockRecorder struct {
+	mock *MockGinController
 }
 
-// NewMockController creates a new mock instance.
-func NewMockController(ctrl *gomock.Controller) *MockController {
-	mock := &MockController{ctrl: ctrl}
-	mock.recorder = &MockControllerMockRecorder{mock}
+// NewMockGinController creates a new mock instance.
+func NewMockGinController(ctrl *gomock.Controller) *MockGinController {
+	mock := &MockGinController{ctrl: ctrl}
+	mock.recorder = &MockGinControllerMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockController) EXPECT() *MockControllerMockRecorder {
+func (m *MockGinController) EXPECT() *MockGinControllerMockRecorder {
 	return m.recorder
 }
 
 // UniqueID mocks base method.
-func (m *MockController) UniqueID(ctx *kgin.Context) {
+func (m *MockGinController) UniqueID(ctx *kgin.Context) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "UniqueID", ctx)
 }
 
 // UniqueID indicates an expected call of UniqueID.
-func (mr *MockControllerMockRecorder) UniqueID(ctx any) *gomock.Call {
+func (mr *MockGinControllerMockRecorder) UniqueID(ctx any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UniqueID", reflect.TypeOf((*MockController)(nil).UniqueID), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UniqueID", reflect.TypeOf((*MockGinController)(nil).UniqueID), ctx)
 }
 
 // MockGrpcController is a mock of GrpcController interface.

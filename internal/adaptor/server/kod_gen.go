@@ -14,10 +14,10 @@ import (
 
 func init() {
 	kod.Register(&kod.Registration{
-		Name:      "github.com/go-kod/kod-mono/internal/adaptor/server/Controller",
-		Interface: reflect.TypeOf((*Controller)(nil)).Elem(),
-		Impl:      reflect.TypeOf(controller{}),
-		Refs:      `⟦fe3cc00c:KoDeDgE:github.com/go-kod/kod-mono/internal/adaptor/server/Controller→github.com/go-kod/kod-mono/internal/app/example/Service⟧`,
+		Name:      "github.com/go-kod/kod-mono/internal/adaptor/server/GinController",
+		Interface: reflect.TypeOf((*GinController)(nil)).Elem(),
+		Impl:      reflect.TypeOf(ginImpl{}),
+		Refs:      `⟦039ecf94:KoDeDgE:github.com/go-kod/kod-mono/internal/adaptor/server/GinController→github.com/go-kod/kod-mono/internal/app/example/Service⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			interceptors := info.Interceptors
 			if h, ok := info.Impl.(interface {
@@ -26,8 +26,8 @@ func init() {
 				interceptors = append(interceptors, h.Interceptors()...)
 			}
 
-			return controller_local_stub{
-				impl:        info.Impl.(Controller),
+			return ginController_local_stub{
+				impl:        info.Impl.(GinController),
 				interceptor: interceptor.Chain(interceptors),
 				name:        info.Name,
 			}
@@ -57,7 +57,7 @@ func init() {
 		Name:      "github.com/go-kod/kod/Main",
 		Interface: reflect.TypeOf((*kod.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(Server{}),
-		Refs: `⟦120e190c:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/server/Controller⟧,
+		Refs: `⟦3b277b6c:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/server/GinController⟧,
 ⟦8b746b0c:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/server/GrpcController⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			interceptors := info.Interceptors
@@ -77,22 +77,22 @@ func init() {
 }
 
 // kod.InstanceOf checks.
-var _ kod.InstanceOf[Controller] = (*controller)(nil)
+var _ kod.InstanceOf[GinController] = (*ginImpl)(nil)
 var _ kod.InstanceOf[GrpcController] = (*grpcImpl)(nil)
 var _ kod.InstanceOf[kod.Main] = (*Server)(nil)
 
 // Local stub implementations.
 
-type controller_local_stub struct {
-	impl        Controller
+type ginController_local_stub struct {
+	impl        GinController
 	name        string
 	interceptor interceptor.Interceptor
 }
 
-// Check that controller_local_stub implements the Controller interface.
-var _ Controller = (*controller_local_stub)(nil)
+// Check that ginController_local_stub implements the GinController interface.
+var _ GinController = (*ginController_local_stub)(nil)
 
-func (s controller_local_stub) UniqueID(a0 *gin.Context) {
+func (s ginController_local_stub) UniqueID(a0 *gin.Context) {
 	// Because the first argument is not context.Context, so interceptors are not supported.
 	s.impl.UniqueID(a0)
 	return

@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	_ "github.com/go-kod/kod-mono/tests/server"
+	_ "github.com/go-kod/kod-mono/tests/e2e/server"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/go-kod/kod"

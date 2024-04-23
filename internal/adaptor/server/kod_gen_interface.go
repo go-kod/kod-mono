@@ -9,8 +9,8 @@ import (
 	kgin "github.com/go-kod/kod/ext/server/kgin"
 )
 
-// controller is a component that implements Controller.
-type Controller interface {
+// ginImpl is a component that implements GinController.
+type GinController interface {
 	// @Summary		Get a Unique ID
 	// @Description	get unique ID
 	// @Consume		x-www-form-urlencoded

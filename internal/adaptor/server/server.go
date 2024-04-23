@@ -28,7 +28,7 @@ type Server struct {
 	pyroscope *pyroscope.Profiler
 	uptrace   *kuptrace.Client
 
-	example  kod.Ref[Controller]
+	example  kod.Ref[GinController]
 	grpcImpl kod.Ref[GrpcController]
 }
 

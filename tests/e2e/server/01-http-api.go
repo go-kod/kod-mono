@@ -3,7 +3,7 @@ package server
 import (
 	"net/http"
 
-	"github.com/go-kod/kod-mono/tests/framework"
+	"github.com/go-kod/kod-mono/tests/e2e/framework"
 	. "github.com/onsi/ginkgo/v2"
 )
 

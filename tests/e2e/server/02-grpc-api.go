@@ -2,7 +2,7 @@ package server
 
 import (
 	snowflakev1 "github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
-	"github.com/go-kod/kod-mono/tests/framework"
+	"github.com/go-kod/kod-mono/tests/e2e/framework"
 	. "github.com/onsi/ginkgo/v2"
 )
 
