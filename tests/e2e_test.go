@@ -24,7 +24,7 @@ func TestE2ESuites(t *testing.T) {
 		// wait for server start
 		time.Sleep(time.Second)
 		RegisterFailHandler(Fail)
-		RunSpecs(t, "mock test cases")
+		RunSpecs(t, "e2e test suites")
 
 		return nil
 	}, kod.WithConfigFile("../config/server/dev.toml"))
