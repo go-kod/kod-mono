@@ -27,7 +27,7 @@ func TestE2ESuites(t *testing.T) {
 		RunSpecs(t, "e2e test suites")
 
 		return nil
-	}, kod.WithConfigFile("../config/server/dev.toml"))
+	}, kod.WithConfigFile("../../config/server/dev.toml"))
 
 	assert.Nil(t, err)
 }
