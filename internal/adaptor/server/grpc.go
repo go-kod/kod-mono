@@ -6,6 +6,7 @@ import (
 	"github.com/go-kod/kod"
 	snowflakev1 "github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
 	"github.com/go-kod/kod-mono/internal/domain/snowflake"
+	"google.golang.org/grpc/status"
 )
 
 type grpcImpl struct {
@@ -17,7 +18,7 @@ type grpcImpl struct {
 func (s *grpcImpl) UniqueId(ctx context.Context, req *snowflakev1.UniqueIdRequest) (*snowflakev1.UniqueIdResponse, error) {
 	res, err := s.snowflake.Get().Gen(ctx, nil)
 	if err != nil {
-		return nil, err
+		return nil, status.Convert(err).Err()
 	}
 
 	return &snowflakev1.UniqueIdResponse{

@@ -8,11 +8,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-kod/kod"
+	"github.com/go-kod/kod-mono/internal/adaptor/server"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGinController(t *testing.T) {
-	kod.RunTest(t, func(ctx context.Context, s GinController) {
+	t.Parallel()
+
+	kod.RunTest(t, func(ctx context.Context, s server.GinController) {
 		record := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(record)
 		c.Request, _ = http.NewRequest("GET", "/uniqueId?name=bob", nil)
