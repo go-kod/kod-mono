@@ -29,13 +29,13 @@ jobs:
 
       - name: golangci-lint
         if: runner.os != 'Windows'
-        uses: golangci/golangci-lint-action@v5.0.0
+        uses: golangci/golangci-lint-action@v5.1.0
         with:
           args: "--out-${NO_FUTURE}format colored-line-number --timeout 5m"
       
       - name: golangci-lint
         if: runner.os == 'Windows'
-        uses: golangci/golangci-lint-action@v5.0.0
+        uses: golangci/golangci-lint-action@v5.1.0
         env:
           nofuture: out-format
         with:
