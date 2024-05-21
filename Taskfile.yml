@@ -34,9 +34,9 @@ tasks:
     desc: Run callgraph generate
     cmds:
       - go build -o tmp/main ./cmd/server/
-      - go run github.com/go-kod/kod/cmd/kod callgraph tmp/main
-      - dot my-graph.dot -T png -o callgraph.png
-      - rm my-graph.dot
+      - go run github.com/go-kod/kod/cmd/kod callgraph tmp/main --o assets/my-graph.dot
+      - dot assets/my-graph.dot -T png -o assets/callgraph.png
+      - rm assets/my-graph.dot
     deps: [install:mockgen]
 
   lint:check:
