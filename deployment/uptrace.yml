@@ -53,13 +53,15 @@ projects:
     # Token grants write access to the project. Keep a secret.
     token: project1_secret_token
     pinned_attrs:
-      - service.name
-      - host.name
-      - deployment.environment
+      - service
+      - host_name
+      - deployment_environment
     # Group spans by deployment.environment attribute.
     group_by_env: false
     # Group funcs spans by service.name attribute.
     group_funcs_by_service: false
+    # Enable prom_compat if you want to use the project as a Prometheus datasource in Grafana.
+    prom_compat: true
 
   # Other projects can be used to monitor your applications.
   # To monitor micro-services or multiple related services, use a single project.
@@ -67,50 +69,15 @@ projects:
     name: My project
     token: project2_secret_token
     pinned_attrs:
-      - service.name
+      - service
       - component
-      - caller
-      - host.name
-      - deployment.environment
+      - host_name
+      - deployment_environment
     # Group spans by deployment.environment attribute.
     group_by_env: false
     # Group funcs spans by service.name attribute.
     group_funcs_by_service: false
-
-##
-## Create metrics from spans and events.
-##
-metrics_from_spans:
-  - name: uptrace.tracing.spans
-    description: Spans duration (excluding events)
-    instrument: histogram
-    unit: microseconds
-    value: .duration / 1000
-    attrs:
-      - .system
-      - .group_id
-      - service.name
-      - component
-      - caller
-      - host.name
-      - .status_code
-    annotations:
-      - display.name
-    where: .event_name = ''
-
-  - name: uptrace.tracing.events
-    description: Events count (excluding spans)
-    instrument: counter
-    unit: 1
-    value: .count
-    attrs:
-      - .system
-      - .group_id
-      - .name
-      - host.name
-    annotations:
-      - display.name
-    where: .is_event = 1
+    prom_compat: true
 
 ##
 ## To require authentication, uncomment one of the following sections.
@@ -244,11 +211,19 @@ uptrace_go:
 ## https://uptrace.dev/get/alerting.html
 ##
 smtp_mailer:
+  # Whether to use this mailer for sending emails.
   enabled: true
-  host: mailhog
+  # SMTP server host.
+  host: mailpit
+  # SMTP server port.
   port: 1025
-  username: mailhog
-  password: mailhog
+  # Username for authentication.
+  username: mailpit
+  # Password for authentication.
+  password: mailpit
+  # Disable TLS. Opportunistic TLS is used by default.
+  tls: { disabled: true }
+  # Emails will be send from this address.
   from: 'uptrace@localhost'
 
 ##

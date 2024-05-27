@@ -63,7 +63,7 @@ services:
       timeout: 1s
       retries: 30
     volumes:
-      - ch_data0:/var/lib/clickhouse
+      - ch_data2:/var/lib/clickhouse
     ports:
       - '8123:8123'
       - '9000:9000'
@@ -82,12 +82,12 @@ services:
       timeout: 1s
       retries: 30
     volumes:
-      - 'pg_data0:/var/lib/postgresql/data/pgdata'
+      - 'pg_data3:/var/lib/postgresql/data/pgdata'
     ports:
       - '5432:5432'
 
   uptrace:
-    image: 'uptrace/uptrace:1.6.0-rc.3'
+    image: 'uptrace/uptrace:1.7.2'
     #image: 'uptrace/uptrace-dev:latest'
     restart: on-failure
     volumes:
@@ -106,16 +106,20 @@ services:
     ports:
       - '4317:4317'
       - '4318:4318'
-    depends_on:
-      - clickhouse
-      - postgres
-      - uptrace
 
-  mailhog:
-    image: mailhog/mailhog:v1.0.1
-    restart: on-failure
+  mailpit:
+    image: axllent/mailpit
+    restart: always
     ports:
-      - '8025:8025'
+      - 1025:1025
+      - 8025:8025
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATA_FILE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    volumes:
+      - mailpit_data:/data
 
   vector:
     image: timberio/vector:0.28.X-alpine
@@ -131,6 +135,30 @@ services:
     ports:
       - '3000:3000'
 
+  prometheus:
+    image: prom/prometheus:v2.36.2
+    restart: always
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+
+
   pyroscope:
     image: grafana/pyroscope:latest
     restart: on-failure
@@ -138,5 +166,7 @@ services:
       - '4040:4040'
 
 volumes:
-  ch_data0:
-  pg_data0:
+  ch_data2:
+  pg_data3:
+  prometheus_data:
+  mailpit_data:
