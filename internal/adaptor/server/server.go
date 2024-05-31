@@ -9,7 +9,6 @@ import (
 	"github.com/go-kod/kod"
 	snowflakev1 "github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
 	"github.com/go-kod/kod/ext/client/kpyroscope"
-	"github.com/go-kod/kod/ext/client/kuptrace"
 	"github.com/go-kod/kod/ext/registry/etcdv3"
 	kgin "github.com/go-kod/kod/ext/server/kgin"
 	"github.com/go-kod/kod/ext/server/kgrpc"
@@ -26,15 +25,12 @@ type Server struct {
 	server    *kgin.Server
 	grpc      *kgrpc.Server
 	pyroscope *pyroscope.Profiler
-	uptrace   *kuptrace.Client
 
 	example  kod.Ref[GinController]
 	grpcImpl kod.Ref[GrpcController]
 }
 
 func (s *Server) Init(ctx context.Context) error {
-	s.uptrace = lo.Must(s.Config().Uptrace.Build(ctx))
-
 	s.pyroscope = lo.Must(s.Config().Pyroscope.Build(ctx))
 
 	registry := lo.Must(s.Config().Etcdv3.Build(ctx))
@@ -69,12 +65,7 @@ func (s *Server) Run(ctx context.Context) error {
 }
 
 func (s *Server) Stop(ctx context.Context) error {
-	err := s.uptrace.Stop(ctx)
-	if err != nil {
-		return fmt.Errorf("failed to stop uptrace: %w", err)
-	}
-
-	err = s.pyroscope.Stop()
+	err := s.pyroscope.Stop()
 	if err != nil {
 		return fmt.Errorf("failed to stop pyroscope: %w", err)
 	}
@@ -95,7 +86,6 @@ func (s *Server) Stop(ctx context.Context) error {
 type config struct {
 	HTTP      kgin.Config       `toml:"http"`
 	Grpc      kgrpc.Config      `toml:"grpc"`
-	Uptrace   kuptrace.Config   `toml:"uptrace"`
 	Pyroscope kpyroscope.Config `toml:"pyroscope"`
 	Etcdv3    etcdv3.Config     `toml:"etcdv3"`
 }

@@ -6,6 +6,5 @@ env = "dev"
 ["github.com/go-kod/kod/Main"]
 http = { address = ":9527" }
 grpc = { address = ":9528" }
-uptrace = { dsn = "http://project2_secret_token@localhost:14318?grpc=14317", debug = false }
 pyroscope = { serverAddress = "http://localhost:4040" }
 etcdv3 = { endpoints = ["localhost:2379"] }

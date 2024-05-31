@@ -5,7 +5,6 @@ import (
 
 	"github.com/go-kod/kod"
 	"github.com/go-kod/kod-mono/internal/adaptor/server"
-	"github.com/go-kod/kod/interceptor/kaccesslog"
 	"github.com/go-kod/kod/interceptor/kmetric"
 	"github.com/go-kod/kod/interceptor/krecovery"
 	"github.com/go-kod/kod/interceptor/ktrace"
@@ -34,6 +33,5 @@ func main() {
 		krecovery.Interceptor(),
 		kmetric.Interceptor(),
 		ktrace.Interceptor(),
-		kaccesslog.Interceptor(),
 	)))
 }
