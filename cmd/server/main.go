@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/go-kod/kod"
+	_ "github.com/go-kod/kod-mono/api/swagger"
 	"github.com/go-kod/kod-mono/internal/adaptor/server"
 	"github.com/go-kod/kod/interceptor/kmetric"
 	"github.com/go-kod/kod/interceptor/krecovery"

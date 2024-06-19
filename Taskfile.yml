@@ -33,7 +33,7 @@ tasks:
   generate:docs:
     desc: Run docs generate
     cmds:
-      - swag init -g ./cmd/server/main.go
+      - swag init -g ./cmd/server/main.go -o ./api/swagger
     deps: [install:swag]
   
   generate:callgraph:
