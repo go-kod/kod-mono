@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/go-kod/kod"
-	snowflakev1 "github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
+	snowflakev1 "github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1"
 	"github.com/go-kod/kod-mono/internal/domain/snowflake"
 	"google.golang.org/grpc/status"
 )

@@ -5,7 +5,8 @@ package server
 import (
 	"context"
 
-	snowflakev1 "github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
+	"github.com/go-kod/kod-mono/api/graph"
+	snowflakev1 "github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1"
 	kgin "github.com/go-kod/kod/ext/server/kgin"
 )
 
@@ -19,6 +20,12 @@ type GinController interface {
 	// @Success		200		{object}	example.TestRes	"ok"
 	// @Router			/uniqueId [get]
 	UniqueID(ctx *kgin.Context)
+}
+
+// resolver is a component that implements GraphController.
+type GraphController interface {
+	Query() graph.QueryResolver
+	Mutation() graph.MutationResolver
 }
 
 // grpcImpl is a component that implements GrpcController.

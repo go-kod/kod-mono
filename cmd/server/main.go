@@ -29,9 +29,11 @@ import (
 func main() {
 	lo.Must0(kod.Run(context.Background(), func(ctx context.Context, s *server.Server) error {
 		return s.Run(ctx)
-	}, kod.WithInterceptors(
-		krecovery.Interceptor(),
-		kmetric.Interceptor(),
-		ktrace.Interceptor(),
-	)))
+	},
+		kod.WithInterceptors(
+			krecovery.Interceptor(),
+			kmetric.Interceptor(),
+			ktrace.Interceptor(),
+		),
+	))
 }

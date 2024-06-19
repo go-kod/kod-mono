@@ -13,7 +13,8 @@ import (
 	context "context"
 	reflect "reflect"
 
-	snowflakev1 "github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
+	graph "github.com/go-kod/kod-mono/api/graph"
+	snowflakev1 "github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1"
 	kgin "github.com/go-kod/kod/ext/server/kgin"
 	gomock "go.uber.org/mock/gomock"
 )
@@ -51,6 +52,57 @@ func (m *MockGinController) UniqueID(ctx *kgin.Context) {
 func (mr *MockGinControllerMockRecorder) UniqueID(ctx any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UniqueID", reflect.TypeOf((*MockGinController)(nil).UniqueID), ctx)
+}
+
+// MockGraphController is a mock of GraphController interface.
+type MockGraphController struct {
+	ctrl     *gomock.Controller
+	recorder *MockGraphControllerMockRecorder
+}
+
+// MockGraphControllerMockRecorder is the mock recorder for MockGraphController.
+type MockGraphControllerMockRecorder struct {
+	mock *MockGraphController
+}
+
+// NewMockGraphController creates a new mock instance.
+func NewMockGraphController(ctrl *gomock.Controller) *MockGraphController {
+	mock := &MockGraphController{ctrl: ctrl}
+	mock.recorder = &MockGraphControllerMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockGraphController) EXPECT() *MockGraphControllerMockRecorder {
+	return m.recorder
+}
+
+// Mutation mocks base method.
+func (m *MockGraphController) Mutation() graph.MutationResolver {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Mutation")
+	ret0, _ := ret[0].(graph.MutationResolver)
+	return ret0
+}
+
+// Mutation indicates an expected call of Mutation.
+func (mr *MockGraphControllerMockRecorder) Mutation() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Mutation", reflect.TypeOf((*MockGraphController)(nil).Mutation))
+}
+
+// Query mocks base method.
+func (m *MockGraphController) Query() graph.QueryResolver {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Query")
+	ret0, _ := ret[0].(graph.QueryResolver)
+	return ret0
+}
+
+// Query indicates an expected call of Query.
+func (mr *MockGraphControllerMockRecorder) Query() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Query", reflect.TypeOf((*MockGraphController)(nil).Query))
 }
 
 // MockGrpcController is a mock of GrpcController interface.

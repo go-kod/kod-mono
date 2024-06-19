@@ -4,7 +4,15 @@ package example
 
 import (
 	"context"
+
+	"github.com/go-kod/kod-mono/api/graph/model"
 )
+
+// graphImpl is a component that implements GraphService.
+type GraphService interface {
+	Todos(ctx context.Context) ([]*model.Todo, error)
+	CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error)
+}
 
 // component is a component that implements Service.
 type Service interface {

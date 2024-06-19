@@ -13,8 +13,62 @@ import (
 	context "context"
 	reflect "reflect"
 
+	model "github.com/go-kod/kod-mono/api/graph/model"
 	gomock "go.uber.org/mock/gomock"
 )
+
+// MockGraphService is a mock of GraphService interface.
+type MockGraphService struct {
+	ctrl     *gomock.Controller
+	recorder *MockGraphServiceMockRecorder
+}
+
+// MockGraphServiceMockRecorder is the mock recorder for MockGraphService.
+type MockGraphServiceMockRecorder struct {
+	mock *MockGraphService
+}
+
+// NewMockGraphService creates a new mock instance.
+func NewMockGraphService(ctrl *gomock.Controller) *MockGraphService {
+	mock := &MockGraphService{ctrl: ctrl}
+	mock.recorder = &MockGraphServiceMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockGraphService) EXPECT() *MockGraphServiceMockRecorder {
+	return m.recorder
+}
+
+// CreateTodo mocks base method.
+func (m *MockGraphService) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateTodo", ctx, input)
+	ret0, _ := ret[0].(*model.Todo)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateTodo indicates an expected call of CreateTodo.
+func (mr *MockGraphServiceMockRecorder) CreateTodo(ctx, input any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTodo", reflect.TypeOf((*MockGraphService)(nil).CreateTodo), ctx, input)
+}
+
+// Todos mocks base method.
+func (m *MockGraphService) Todos(ctx context.Context) ([]*model.Todo, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Todos", ctx)
+	ret0, _ := ret[0].([]*model.Todo)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Todos indicates an expected call of Todos.
+func (mr *MockGraphServiceMockRecorder) Todos(ctx any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Todos", reflect.TypeOf((*MockGraphService)(nil).Todos), ctx)
+}
 
 // MockService is a mock of Service interface.
 type MockService struct {

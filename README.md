@@ -3,10 +3,12 @@
 [![Build and Test](https://github.com/go-kod/kod-mono/actions/workflows/go.yml/badge.svg)](https://github.com/go-kod/kod-mono/actions/workflows/go.yml)
 [![codecov](https://codecov.io/gh/go-kod/kod-mono/graph/badge.svg?token=BvQttVqscO)](https://codecov.io/gh/go-kod/kod-mono)
 
+Kod Mono is a programming template for writing kod applications.
+
 ## Features
 
 - Mono Repo Based on Kod
-- Support gRPC & HTTP API
+- Support gRPC & HTTP & GraphQL
 - Clean Architecture
 - Domain Driven Design
 - Unit Test & Integration Test & E2E Test
@@ -63,7 +65,7 @@ curl http://localhost:9527/uniqueId?name=bob -v
 {"Uuid":"1796438007688056832"}%
 ```
 
-## Uptrace
+## Observability - Uptrace
 
 Visiting [Uptrace](http://localhost:14318/overview/2)
 

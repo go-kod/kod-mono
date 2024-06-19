@@ -15,8 +15,11 @@ type ginImpl struct {
 	comp kod.Ref[example.Service]
 }
 
-func registerHTTP(s *kgin.Server, c GinController) {
+func registerHTTP(s *kgin.Server, c GinController, graph GraphController) {
 	s.GET("/uniqueId", c.UniqueID)
+
+	s.Handle("POST", "/graphql", graphqlHandler(graph))
+	s.Handle("GET", "/", playgroundHandler())
 }
 
 // @Summary		Get a Unique ID

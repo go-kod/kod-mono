@@ -5,6 +5,7 @@ tasks:
   default:
     cmds:
       - task: generate:docs
+      - task: generate:graph
       - task: generate:kod
 
   github-action:
@@ -17,6 +18,11 @@ tasks:
     cmds:
       - go run github.com/go-kod/kod/cmd/kod struct2interface .
     deps: [install:mockgen]
+
+  generate:graph:
+    desc: Runs gqlgen
+    cmds:
+      - go run github.com/99designs/gqlgen generate
 
   generate:kod:
     desc: Runs kod generate

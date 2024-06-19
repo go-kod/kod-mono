@@ -7,7 +7,8 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod-mono/api/gen/go/snowflake/v1"
+	"github.com/go-kod/kod-mono/api/graph"
+	"github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1"
 	"github.com/go-kod/kod/interceptor"
 	"reflect"
 )
@@ -28,6 +29,26 @@ func init() {
 
 			return ginController_local_stub{
 				impl:        info.Impl.(GinController),
+				interceptor: interceptor.Chain(interceptors),
+				name:        info.Name,
+			}
+		},
+	})
+	kod.Register(&kod.Registration{
+		Name:      "github.com/go-kod/kod-mono/internal/adaptor/server/GraphController",
+		Interface: reflect.TypeOf((*GraphController)(nil)).Elem(),
+		Impl:      reflect.TypeOf(resolver{}),
+		Refs:      `⟦35bf9cd5:KoDeDgE:github.com/go-kod/kod-mono/internal/adaptor/server/GraphController→github.com/go-kod/kod-mono/internal/app/example/GraphService⟧`,
+		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
+			interceptors := info.Interceptors
+			if h, ok := info.Impl.(interface {
+				Interceptors() []interceptor.Interceptor
+			}); ok {
+				interceptors = append(interceptors, h.Interceptors()...)
+			}
+
+			return graphController_local_stub{
+				impl:        info.Impl.(GraphController),
 				interceptor: interceptor.Chain(interceptors),
 				name:        info.Name,
 			}
@@ -58,7 +79,8 @@ func init() {
 		Interface: reflect.TypeOf((*kod.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(Server{}),
 		Refs: `⟦3b277b6c:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/server/GinController⟧,
-⟦8b746b0c:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/server/GrpcController⟧`,
+⟦8b746b0c:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/server/GrpcController⟧,
+⟦88b98bfb:KoDeDgE:github.com/go-kod/kod/Main→github.com/go-kod/kod-mono/internal/adaptor/server/GraphController⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			interceptors := info.Interceptors
 			if h, ok := info.Impl.(interface {
@@ -78,6 +100,7 @@ func init() {
 
 // kod.InstanceOf checks.
 var _ kod.InstanceOf[GinController] = (*ginImpl)(nil)
+var _ kod.InstanceOf[GraphController] = (*resolver)(nil)
 var _ kod.InstanceOf[GrpcController] = (*grpcImpl)(nil)
 var _ kod.InstanceOf[kod.Main] = (*Server)(nil)
 
@@ -95,6 +118,27 @@ var _ GinController = (*ginController_local_stub)(nil)
 func (s ginController_local_stub) UniqueID(a0 *gin.Context) {
 	// Because the first argument is not context.Context, so interceptors are not supported.
 	s.impl.UniqueID(a0)
+	return
+}
+
+type graphController_local_stub struct {
+	impl        GraphController
+	name        string
+	interceptor interceptor.Interceptor
+}
+
+// Check that graphController_local_stub implements the GraphController interface.
+var _ GraphController = (*graphController_local_stub)(nil)
+
+func (s graphController_local_stub) Mutation() (r0 graph.MutationResolver) {
+	// Because the first argument is not context.Context, so interceptors are not supported.
+	r0 = s.impl.Mutation()
+	return
+}
+
+func (s graphController_local_stub) Query() (r0 graph.QueryResolver) {
+	// Because the first argument is not context.Context, so interceptors are not supported.
+	r0 = s.impl.Query()
 	return
 }
 

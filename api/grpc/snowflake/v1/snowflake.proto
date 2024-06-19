@@ -3,7 +3,7 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "com.douyu.snowflake.v1";
 option java_outer_classname = "SnowflakeProtoV1";
-option go_package = "github.com/go-kod/kod-mono/gen/go/api/snowflake/v1;snowflakev1";
+option go_package = "github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1;snowflakev1";
 
 package snowflake.v1;
 
