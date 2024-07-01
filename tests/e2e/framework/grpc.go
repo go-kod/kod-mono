@@ -44,7 +44,7 @@ func RunGRPCTestCase(tc GRPCTestCase) {
 	ctx, cancel := context.WithTimeout(context.Background(), tc.Timeout)
 	defer cancel()
 
-	cc, err := grpc.DialContext(ctx, tc.Addr,
+	cc, err := grpc.NewClient(tc.Addr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)
 	assert.Nil(t, err)
