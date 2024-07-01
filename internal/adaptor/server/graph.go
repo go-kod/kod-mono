@@ -7,6 +7,7 @@ import (
 	"github.com/go-kod/kod"
 	"github.com/go-kod/kod-mono/api/graph"
 	"github.com/go-kod/kod-mono/internal/app/example"
+	"github.com/ravilushqa/otelgqlgen"
 )
 
 type resolver struct {
@@ -26,6 +27,8 @@ func graphqlHandler(g GraphController) gin.HandlerFunc {
 	h := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{
 		Resolvers: g,
 	}))
+
+	h.Use(otelgqlgen.Middleware())
 
 	return func(c *gin.Context) {
 		h.ServeHTTP(c.Writer, c.Request)
