@@ -8,3 +8,6 @@ http = { address = ":9527" }
 grpc = { address = ":9528" }
 pyroscope = { serverAddress = "http://localhost:4040" }
 etcdv3 = { endpoints = ["localhost:2379"] }
+
+["github.com/go-kod/kod-mono/internal/infra/grpc/Snowflake"]
+target = "localhost:9528"

@@ -5,7 +5,8 @@ import (
 	"log/slog"
 
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod-mono/internal/domain/snowflake"
+	snowflakev1 "github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1"
+	"github.com/go-kod/kod-mono/internal/infra/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -24,7 +25,7 @@ type TestRes struct {
 type component struct {
 	kod.Implements[Service]
 
-	uuidService kod.Ref[snowflake.Service]
+	grpcSnowflake kod.Ref[grpc.Snowflake]
 }
 
 func (c *component) UniqueID(ctx context.Context, req *TestReq) (*TestRes, error) {
@@ -33,10 +34,10 @@ func (c *component) UniqueID(ctx context.Context, req *TestReq) (*TestRes, error
 		return nil, status.Errorf(codes.InvalidArgument, "name is empty")
 	}
 
-	res, err := c.uuidService.Get().Gen(ctx, &snowflake.GenReq{})
+	res, err := c.grpcSnowflake.Get().UniqueId(ctx, &snowflakev1.UniqueIdRequest{})
 	if err != nil {
 		return nil, err
 	}
 
-	return &TestRes{Uuid: res.UUID}, nil
+	return &TestRes{Uuid: res.GetUuid()}, nil
 }
