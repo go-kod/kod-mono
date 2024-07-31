@@ -25,7 +25,7 @@ require (
 	github.com/swaggo/swag v1.16.2
 	github.com/vektah/gqlparser/v2 v2.5.16
 	go.uber.org/mock v0.4.0
-	google.golang.org/grpc v1.64.0
+	google.golang.org/grpc v1.64.1
 	google.golang.org/protobuf v1.34.2
 )
 
