@@ -9,7 +9,7 @@ require (
 	github.com/expr-lang/expr v1.16.5
 	github.com/fullstorydev/grpcurl v1.9.1
 	github.com/gin-gonic/gin v1.10.0
-	github.com/go-kod/kod v0.10.0
+	github.com/go-kod/kod v0.12.0
 	github.com/go-kod/kod/ext v0.12.0
 	github.com/go-resty/resty/v2 v2.13.1
 	github.com/grafana/pyroscope-go v1.1.1
@@ -139,7 +139,6 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/host v0.53.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/runtime v0.53.0 // indirect
 	go.opentelemetry.io/otel v1.28.0 // indirect
-	go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploggrpc v0.0.0-20240524160931-7c5e64cccc16 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp v0.4.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.28.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.28.0 // indirect
