@@ -14,8 +14,8 @@ require (
 	github.com/go-resty/resty/v2 v2.13.1
 	github.com/grafana/pyroscope-go v1.1.1
 	github.com/jhump/protoreflect v1.16.0
-	github.com/onsi/ginkgo/v2 v2.17.1
-	github.com/onsi/gomega v1.33.0
+	github.com/onsi/ginkgo/v2 v2.19.1
+	github.com/onsi/gomega v1.34.0
 	github.com/ravilushqa/otelgqlgen v0.16.0
 	github.com/samber/lo v1.46.0
 	github.com/spf13/cast v1.6.0
@@ -68,13 +68,13 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.22.0 // indirect
-	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
+	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/goccy/go-json v0.10.3 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/gohugoio/hugo v0.111.3 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
-	github.com/google/pprof v0.0.0-20210407192527-94a9f03dee38 // indirect
+	github.com/google/pprof v0.0.0-20240424215950-a892ee059fd6 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.6 // indirect
