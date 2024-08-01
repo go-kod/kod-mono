@@ -15,7 +15,7 @@ require (
 	github.com/grafana/pyroscope-go v1.1.1
 	github.com/jhump/protoreflect v1.16.0
 	github.com/onsi/ginkgo/v2 v2.19.1
-	github.com/onsi/gomega v1.34.0
+	github.com/onsi/gomega v1.34.1
 	github.com/ravilushqa/otelgqlgen v0.16.0
 	github.com/samber/lo v1.46.0
 	github.com/spf13/cast v1.6.0
@@ -160,7 +160,7 @@ require (
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/arch v0.8.0 // indirect
 	golang.org/x/crypto v0.25.0 // indirect
-	golang.org/x/exp v0.0.0-20240707233637-46b078467d37 // indirect
+	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56 // indirect
 	golang.org/x/mod v0.19.0 // indirect
 	golang.org/x/net v0.27.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
