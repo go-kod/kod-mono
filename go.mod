@@ -9,7 +9,7 @@ require (
 	github.com/expr-lang/expr v1.16.9
 	github.com/fullstorydev/grpcurl v1.9.1
 	github.com/gin-gonic/gin v1.10.0
-	github.com/go-kod/kod v0.12.0
+	github.com/go-kod/kod v0.13.0
 	github.com/go-kod/kod/ext v0.12.0
 	github.com/go-resty/resty/v2 v2.13.1
 	github.com/grafana/pyroscope-go v1.1.1
