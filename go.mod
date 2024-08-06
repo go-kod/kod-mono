@@ -11,7 +11,7 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-kod/kod v0.13.0
 	github.com/go-kod/kod/ext v0.12.0
-	github.com/go-resty/resty/v2 v2.13.1
+	github.com/go-resty/resty/v2 v2.14.0
 	github.com/grafana/pyroscope-go v1.1.1
 	github.com/jhump/protoreflect v1.16.0
 	github.com/onsi/ginkgo/v2 v2.19.1
