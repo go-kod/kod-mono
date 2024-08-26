@@ -10,7 +10,7 @@ require (
 	github.com/fullstorydev/grpcurl v1.9.1
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-kod/kod v0.13.0
-	github.com/go-kod/kod/ext v0.12.0
+	github.com/go-kod/kod/ext v0.13.0
 	github.com/go-resty/resty/v2 v2.14.0
 	github.com/grafana/pyroscope-go v1.1.2
 	github.com/jhump/protoreflect v1.16.0
@@ -106,7 +106,7 @@ require (
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/redis/go-redis/extra/rediscmd/v9 v9.5.3 // indirect
 	github.com/redis/go-redis/extra/redisotel/v9 v9.5.3 // indirect
-	github.com/redis/go-redis/v9 v9.5.3 // indirect
+	github.com/redis/go-redis/v9 v9.6.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sagikazarmark/locafero v0.6.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
@@ -127,9 +127,9 @@ require (
 	github.com/urfave/cli/v2 v2.27.2 // indirect
 	github.com/xrash/smetrics v0.0.0-20240312152122-5f08fbb34913 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
-	go.etcd.io/etcd/api/v3 v3.5.14 // indirect
-	go.etcd.io/etcd/client/pkg/v3 v3.5.14 // indirect
-	go.etcd.io/etcd/client/v3 v3.5.14 // indirect
+	go.etcd.io/etcd/api/v3 v3.5.15 // indirect
+	go.etcd.io/etcd/client/pkg/v3 v3.5.15 // indirect
+	go.etcd.io/etcd/client/v3 v3.5.15 // indirect
 	go.opentelemetry.io/contrib v1.27.0 // indirect
 	go.opentelemetry.io/contrib/bridges/otelslog v0.3.0 // indirect
 	go.opentelemetry.io/contrib/bridges/prometheus v0.53.0 // indirect
