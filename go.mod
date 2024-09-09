@@ -11,11 +11,11 @@ require (
 	github.com/expr-lang/expr v1.16.9
 	github.com/fullstorydev/grpcurl v1.9.1
 	github.com/gin-gonic/gin v1.10.0
-	github.com/go-kod/kod v0.14.0
-	github.com/go-kod/kod/ext v0.14.0
+	github.com/go-kod/kod v0.14.3
+	github.com/go-kod/kod/ext v0.14.3
 	github.com/go-resty/resty/v2 v2.14.0
 	github.com/grafana/pyroscope-go v1.1.2
-	github.com/jhump/protoreflect v1.16.0
+	github.com/jhump/protoreflect v1.17.0
 	github.com/onsi/ginkgo/v2 v2.20.2
 	github.com/onsi/gomega v1.34.2
 	github.com/ravilushqa/otelgqlgen v0.16.0
@@ -38,7 +38,7 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bep/godartsass v0.16.0 // indirect
 	github.com/bep/golibsass v1.1.0 // indirect
-	github.com/bufbuild/protocompile v0.10.0 // indirect
+	github.com/bufbuild/protocompile v0.14.1 // indirect
 	github.com/bytedance/sonic v1.12.1 // indirect
 	github.com/bytedance/sonic/loader v0.2.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
