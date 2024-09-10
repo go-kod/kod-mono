@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// service is a component that implements Service.
+// Service is implemented by [service],
+// which can be mocked with [NewMockService].
 type Service interface {
+	// Gen is implemented by [service.Gen]
 	Gen(ctx context.Context, _ *GenReq) (*GenRes, error)
 }

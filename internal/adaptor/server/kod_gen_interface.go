@@ -10,25 +10,33 @@ import (
 	kgin "github.com/go-kod/kod/ext/server/kgin"
 )
 
-// ginImpl is a component that implements GinController.
+// GinController is implemented by [ginImpl],
+// which can be mocked with [NewMockGinController].
 type GinController interface {
-	// @Summary		Get a Unique ID
-	// @Description	get unique ID
-	// @Consume		x-www-form-urlencoded
-	// @Produce		json
-	// @Param			request	query		example.TestReq	true	"请求参数"
-	// @Success		200		{object}	example.TestRes	"ok"
-	// @Router			/uniqueId [get]
+	// UniqueID is implemented by [ginImpl.UniqueID]
+	//
+	//	@Summary		Get a Unique ID
+	//	@Description	get unique ID
+	//	@Consume		x-www-form-urlencoded
+	//	@Produce		json
+	//	@Param			request	query		example.TestReq	true	"请求参数"
+	//	@Success		200		{object}	example.TestRes	"ok"
+	//	@Router			/uniqueId [get]
 	UniqueID(ctx *kgin.Context)
 }
 
-// resolver is a component that implements GraphController.
+// GraphController is implemented by [resolver],
+// which can be mocked with [NewMockGraphController].
 type GraphController interface {
+	// Query is implemented by [resolver.Query]
 	Query() graph.QueryResolver
+	// Mutation is implemented by [resolver.Mutation]
 	Mutation() graph.MutationResolver
 }
 
-// grpcImpl is a component that implements GrpcController.
+// GrpcController is implemented by [grpcImpl],
+// which can be mocked with [NewMockGrpcController].
 type GrpcController interface {
+	// UniqueId is implemented by [grpcImpl.UniqueId]
 	UniqueId(ctx context.Context, req *snowflakev1.UniqueIdRequest) (*snowflakev1.UniqueIdResponse, error)
 }

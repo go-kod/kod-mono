@@ -36,7 +36,7 @@ func init() {
 		Name:      "github.com/go-kod/kod-mono/internal/app/example/Service",
 		Interface: reflect.TypeOf((*Service)(nil)).Elem(),
 		Impl:      reflect.TypeOf(component{}),
-		Refs:      `⟦2cd73ff4:KoDeDgE:github.com/go-kod/kod-mono/internal/app/example/Service→github.com/go-kod/kod-mono/internal/domain/snowflake/Service⟧`,
+		Refs:      `⟦2c62dafb:KoDeDgE:github.com/go-kod/kod-mono/internal/app/example/Service→github.com/go-kod/kod-mono/internal/infra/grpc/Snowflake⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
 			interceptors := info.Interceptors
 			if h, ok := info.Impl.(interface {
@@ -60,6 +60,7 @@ var _ kod.InstanceOf[Service] = (*component)(nil)
 
 // Local stub implementations.
 
+// graphService_local_stub is a local stub implementation of [GraphService].
 type graphService_local_stub struct {
 	impl        GraphService
 	name        string
@@ -117,6 +118,7 @@ func (s graphService_local_stub) Todos(ctx context.Context) (r0 []*model.Todo, e
 	return
 }
 
+// service_local_stub is a local stub implementation of [Service].
 type service_local_stub struct {
 	impl        Service
 	name        string

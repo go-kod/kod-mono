@@ -106,6 +106,7 @@ var _ kod.InstanceOf[kod.Main] = (*Server)(nil)
 
 // Local stub implementations.
 
+// ginController_local_stub is a local stub implementation of [GinController].
 type ginController_local_stub struct {
 	impl        GinController
 	name        string
@@ -121,6 +122,7 @@ func (s ginController_local_stub) UniqueID(a0 *gin.Context) {
 	return
 }
 
+// graphController_local_stub is a local stub implementation of [GraphController].
 type graphController_local_stub struct {
 	impl        GraphController
 	name        string
@@ -142,6 +144,7 @@ func (s graphController_local_stub) Query() (r0 graph.QueryResolver) {
 	return
 }
 
+// grpcController_local_stub is a local stub implementation of [GrpcController].
 type grpcController_local_stub struct {
 	impl        GrpcController
 	name        string
@@ -175,6 +178,7 @@ func (s grpcController_local_stub) UniqueId(ctx context.Context, a1 *snowflakev1
 	return
 }
 
+// main_local_stub is a local stub implementation of [kod.Main].
 type main_local_stub struct {
 	impl        kod.Main
 	name        string
