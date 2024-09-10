@@ -39,6 +39,7 @@ var _ kod.InstanceOf[Snowflake] = (*impl)(nil)
 
 // Local stub implementations.
 
+// snowflake_local_stub is a local stub implementation of [Snowflake].
 type snowflake_local_stub struct {
 	impl        Snowflake
 	name        string

@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// snowflake is a component that implements SnowflakeRepository.
+// SnowflakeRepository is implemented by [snowflake],
+// which can be mocked with [NewMockSnowflakeRepository].
 type SnowflakeRepository interface {
+	// GetUniqId is implemented by [snowflake.GetUniqId]
 	GetUniqId(ctx context.Context) (int64, error)
 }

@@ -8,7 +8,9 @@ import (
 	snowflakev1 "github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1"
 )
 
-// impl is a component that implements Snowflake.
+// Snowflake is implemented by [impl],
+// which can be mocked with [NewMockSnowflake].
 type Snowflake interface {
+	// UniqueId is implemented by [impl.UniqueId]
 	UniqueId(ctx context.Context, req *snowflakev1.UniqueIdRequest) (*snowflakev1.UniqueIdResponse, error)
 }

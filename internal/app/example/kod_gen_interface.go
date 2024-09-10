@@ -8,13 +8,18 @@ import (
 	"github.com/go-kod/kod-mono/api/graph/model"
 )
 
-// graphImpl is a component that implements GraphService.
+// GraphService is implemented by [graphImpl],
+// which can be mocked with [NewMockGraphService].
 type GraphService interface {
+	// Todos is implemented by [graphImpl.Todos]
 	Todos(ctx context.Context) ([]*model.Todo, error)
+	// CreateTodo is implemented by [graphImpl.CreateTodo]
 	CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error)
 }
 
-// component is a component that implements Service.
+// Service is implemented by [component],
+// which can be mocked with [NewMockService].
 type Service interface {
+	// UniqueID is implemented by [component.UniqueID]
 	UniqueID(ctx context.Context, req *TestReq) (*TestRes, error)
 }
