@@ -13,8 +13,6 @@ import (
 )
 
 func TestGinController(t *testing.T) {
-	t.Parallel()
-
 	kod.RunTest(t, func(ctx context.Context, s server.GinController) {
 		record := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(record)
