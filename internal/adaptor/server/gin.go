@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/go-kod/kod"
+	kgin "github.com/go-kod/kod-ext/server/kgin"
 	"github.com/go-kod/kod-mono/internal/app/example"
-	kgin "github.com/go-kod/kod/ext/server/kgin"
 	"google.golang.org/grpc/status"
 )
 

@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/go-kod/kod"
+	"github.com/go-kod/kod-ext/client/kgrpc"
 	snowflakev1 "github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1"
-	"github.com/go-kod/kod/ext/client/kgrpc"
 )
 
 type impl struct {

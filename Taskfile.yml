@@ -13,12 +13,6 @@ tasks:
       - task
       - task: test:coverage
 
-  generate:struct2interface:
-    desc: Runs kod struct2interface
-    cmds:
-      - go run github.com/go-kod/kod/cmd/kod struct2interface .
-    deps: [install:mockgen]
-
   generate:graph:
     desc: Runs gqlgen
     cmds:
@@ -27,8 +21,7 @@ tasks:
   generate:kod:
     desc: Runs kod generate
     cmds:
-      - go run github.com/go-kod/kod/cmd/kod generate ./...
-    deps: [generate:struct2interface]
+      - go run github.com/go-kod/kod/cmd/kod generate -s ./...
 
   generate:docs:
     desc: Run docs generate

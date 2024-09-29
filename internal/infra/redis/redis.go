@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod/ext/client/kredis"
+	"github.com/go-kod/kod-ext/client/kredis"
 )
 
 type snowflake struct {
@@ -15,7 +15,6 @@ type snowflake struct {
 }
 
 func (s *snowflake) Init(context.Context) error {
-
 	s.redis = s.Config().Build()
 	return nil
 }
