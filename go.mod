@@ -12,14 +12,14 @@ require (
 	github.com/go-kod/kod v0.14.6
 	github.com/go-kod/kod-ext v0.1.0
 	github.com/grafana/pyroscope-go v1.2.0
-	github.com/ravilushqa/otelgqlgen v0.16.0
+	github.com/ravilushqa/otelgqlgen v0.17.0
 	github.com/samber/lo v1.47.0
 	github.com/spf13/cast v1.7.0
 	github.com/stretchr/testify v1.9.0
 	github.com/swaggo/files v1.0.1
 	github.com/swaggo/gin-swagger v1.6.0
 	github.com/swaggo/swag v1.16.3
-	github.com/vektah/gqlparser/v2 v2.5.16
+	github.com/vektah/gqlparser/v2 v2.5.17
 	go.uber.org/mock v0.4.0
 	google.golang.org/grpc v1.67.0
 	google.golang.org/protobuf v1.34.2
@@ -119,7 +119,7 @@ require (
 	go.etcd.io/etcd/api/v3 v3.5.16 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.16 // indirect
 	go.etcd.io/etcd/client/v3 v3.5.16 // indirect
-	go.opentelemetry.io/contrib v1.27.0 // indirect
+	go.opentelemetry.io/contrib v1.29.0 // indirect
 	go.opentelemetry.io/contrib/bridges/otelslog v0.5.0 // indirect
 	go.opentelemetry.io/contrib/bridges/prometheus v0.55.0 // indirect
 	go.opentelemetry.io/contrib/exporters/autoexport v0.55.0 // indirect
