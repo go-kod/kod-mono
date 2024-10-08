@@ -13,6 +13,8 @@ import (
 )
 
 func TestGraphController(t *testing.T) {
+	t.Parallel()
+
 	kod.RunTest(t, func(ctx context.Context, s server.GraphController) {
 		c := client.New(handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{
 			Resolvers: s,

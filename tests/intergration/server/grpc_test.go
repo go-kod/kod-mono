@@ -11,6 +11,8 @@ import (
 )
 
 func TestGrpcController(t *testing.T) {
+	t.Parallel()
+
 	kod.RunTest(t, func(ctx context.Context, c server.GrpcController) {
 		res, err := c.UniqueId(ctx, &snowflakev1.UniqueIdRequest{})
 		require.Nil(t, err)
