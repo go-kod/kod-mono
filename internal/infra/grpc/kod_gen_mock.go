@@ -21,6 +21,7 @@ import (
 type MockSnowflake struct {
 	ctrl     *gomock.Controller
 	recorder *MockSnowflakeMockRecorder
+	isgomock struct{}
 }
 
 // MockSnowflakeMockRecorder is the mock recorder for MockSnowflake.

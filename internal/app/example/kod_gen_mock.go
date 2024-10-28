@@ -21,6 +21,7 @@ import (
 type MockGraphService struct {
 	ctrl     *gomock.Controller
 	recorder *MockGraphServiceMockRecorder
+	isgomock struct{}
 }
 
 // MockGraphServiceMockRecorder is the mock recorder for MockGraphService.
@@ -122,6 +123,7 @@ func (c *MockGraphServiceTodosCall) DoAndReturn(f func(context.Context) ([]*mode
 type MockService struct {
 	ctrl     *gomock.Controller
 	recorder *MockServiceMockRecorder
+	isgomock struct{}
 }
 
 // MockServiceMockRecorder is the mock recorder for MockService.

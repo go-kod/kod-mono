@@ -10,6 +10,12 @@ import (
 	"reflect"
 )
 
+// Full method names for components.
+const (
+	// Service_Gen_FullMethodName is the full name of the method [service.Gen].
+	Service_Gen_FullMethodName = "github.com/go-kod/kod-mono/internal/domain/snowflake/Service.Gen"
+)
+
 func init() {
 	kod.Register(&kod.Registration{
 		Name:      "github.com/go-kod/kod-mono/internal/domain/snowflake/Service",
@@ -17,17 +23,9 @@ func init() {
 		Impl:      reflect.TypeOf(service{}),
 		Refs:      `⟦2f0f2230:KoDeDgE:github.com/go-kod/kod-mono/internal/domain/snowflake/Service→github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
-			interceptors := info.Interceptors
-			if h, ok := info.Impl.(interface {
-				Interceptors() []interceptor.Interceptor
-			}); ok {
-				interceptors = append(interceptors, h.Interceptors()...)
-			}
-
 			return service_local_stub{
 				impl:        info.Impl.(Service),
-				interceptor: interceptor.Chain(interceptors),
-				name:        info.Name,
+				interceptor: info.Interceptor,
 			}
 		},
 	})
@@ -41,13 +39,13 @@ var _ kod.InstanceOf[Service] = (*service)(nil)
 // service_local_stub is a local stub implementation of [Service].
 type service_local_stub struct {
 	impl        Service
-	name        string
 	interceptor interceptor.Interceptor
 }
 
-// Check that service_local_stub implements the Service interface.
+// Check that [service_local_stub] implements the [Service] interface.
 var _ Service = (*service_local_stub)(nil)
 
+// Gen wraps the method [service.Gen].
 func (s service_local_stub) Gen(ctx context.Context, a1 *GenReq) (r0 *GenRes, err error) {
 
 	if s.interceptor == nil {
@@ -63,9 +61,7 @@ func (s service_local_stub) Gen(ctx context.Context, a1 *GenReq) (r0 *GenRes, er
 
 	info := interceptor.CallInfo{
 		Impl:       s.impl,
-		Component:  s.name,
-		FullMethod: "github.com/go-kod/kod-mono/internal/domain/snowflake/Service.Gen",
-		Method:     "Gen",
+		FullMethod: Service_Gen_FullMethodName,
 	}
 
 	err = s.interceptor(ctx, info, []any{a1}, []any{r0}, call)

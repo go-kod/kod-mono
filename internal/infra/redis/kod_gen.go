@@ -10,6 +10,12 @@ import (
 	"reflect"
 )
 
+// Full method names for components.
+const (
+	// SnowflakeRepository_GetUniqId_FullMethodName is the full name of the method [snowflake.GetUniqId].
+	SnowflakeRepository_GetUniqId_FullMethodName = "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository.GetUniqId"
+)
+
 func init() {
 	kod.Register(&kod.Registration{
 		Name:      "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository",
@@ -17,17 +23,9 @@ func init() {
 		Impl:      reflect.TypeOf(snowflake{}),
 		Refs:      ``,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
-			interceptors := info.Interceptors
-			if h, ok := info.Impl.(interface {
-				Interceptors() []interceptor.Interceptor
-			}); ok {
-				interceptors = append(interceptors, h.Interceptors()...)
-			}
-
 			return snowflakeRepository_local_stub{
 				impl:        info.Impl.(SnowflakeRepository),
-				interceptor: interceptor.Chain(interceptors),
-				name:        info.Name,
+				interceptor: info.Interceptor,
 			}
 		},
 	})
@@ -41,13 +39,13 @@ var _ kod.InstanceOf[SnowflakeRepository] = (*snowflake)(nil)
 // snowflakeRepository_local_stub is a local stub implementation of [SnowflakeRepository].
 type snowflakeRepository_local_stub struct {
 	impl        SnowflakeRepository
-	name        string
 	interceptor interceptor.Interceptor
 }
 
-// Check that snowflakeRepository_local_stub implements the SnowflakeRepository interface.
+// Check that [snowflakeRepository_local_stub] implements the [SnowflakeRepository] interface.
 var _ SnowflakeRepository = (*snowflakeRepository_local_stub)(nil)
 
+// GetUniqId wraps the method [snowflake.GetUniqId].
 func (s snowflakeRepository_local_stub) GetUniqId(ctx context.Context) (r0 int64, err error) {
 
 	if s.interceptor == nil {
@@ -63,9 +61,7 @@ func (s snowflakeRepository_local_stub) GetUniqId(ctx context.Context) (r0 int64
 
 	info := interceptor.CallInfo{
 		Impl:       s.impl,
-		Component:  s.name,
-		FullMethod: "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository.GetUniqId",
-		Method:     "GetUniqId",
+		FullMethod: SnowflakeRepository_GetUniqId_FullMethodName,
 	}
 
 	err = s.interceptor(ctx, info, []any{}, []any{r0}, call)
