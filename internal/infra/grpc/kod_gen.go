@@ -11,6 +11,12 @@ import (
 	"reflect"
 )
 
+// Full method names for components.
+const (
+	// Snowflake_UniqueId_FullMethodName is the full name of the method [impl.UniqueId].
+	Snowflake_UniqueId_FullMethodName = "github.com/go-kod/kod-mono/internal/infra/grpc/Snowflake.UniqueId"
+)
+
 func init() {
 	kod.Register(&kod.Registration{
 		Name:      "github.com/go-kod/kod-mono/internal/infra/grpc/Snowflake",
@@ -18,17 +24,9 @@ func init() {
 		Impl:      reflect.TypeOf(impl{}),
 		Refs:      ``,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
-			interceptors := info.Interceptors
-			if h, ok := info.Impl.(interface {
-				Interceptors() []interceptor.Interceptor
-			}); ok {
-				interceptors = append(interceptors, h.Interceptors()...)
-			}
-
 			return snowflake_local_stub{
 				impl:        info.Impl.(Snowflake),
-				interceptor: interceptor.Chain(interceptors),
-				name:        info.Name,
+				interceptor: info.Interceptor,
 			}
 		},
 	})
@@ -42,13 +40,13 @@ var _ kod.InstanceOf[Snowflake] = (*impl)(nil)
 // snowflake_local_stub is a local stub implementation of [Snowflake].
 type snowflake_local_stub struct {
 	impl        Snowflake
-	name        string
 	interceptor interceptor.Interceptor
 }
 
-// Check that snowflake_local_stub implements the Snowflake interface.
+// Check that [snowflake_local_stub] implements the [Snowflake] interface.
 var _ Snowflake = (*snowflake_local_stub)(nil)
 
+// UniqueId wraps the method [impl.UniqueId].
 func (s snowflake_local_stub) UniqueId(ctx context.Context, a1 *snowflakev1.UniqueIdRequest) (r0 *snowflakev1.UniqueIdResponse, err error) {
 
 	if s.interceptor == nil {
@@ -64,9 +62,7 @@ func (s snowflake_local_stub) UniqueId(ctx context.Context, a1 *snowflakev1.Uniq
 
 	info := interceptor.CallInfo{
 		Impl:       s.impl,
-		Component:  s.name,
-		FullMethod: "github.com/go-kod/kod-mono/internal/infra/grpc/Snowflake.UniqueId",
-		Method:     "UniqueId",
+		FullMethod: Snowflake_UniqueId_FullMethodName,
 	}
 
 	err = s.interceptor(ctx, info, []any{a1}, []any{r0}, call)

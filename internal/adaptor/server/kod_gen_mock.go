@@ -23,6 +23,7 @@ import (
 type MockGinController struct {
 	ctrl     *gomock.Controller
 	recorder *MockGinControllerMockRecorder
+	isgomock struct{}
 }
 
 // MockGinControllerMockRecorder is the mock recorder for MockGinController.
@@ -82,6 +83,7 @@ func (c *MockGinControllerUniqueIDCall) DoAndReturn(f func(*kgin.Context)) *Mock
 type MockGraphController struct {
 	ctrl     *gomock.Controller
 	recorder *MockGraphControllerMockRecorder
+	isgomock struct{}
 }
 
 // MockGraphControllerMockRecorder is the mock recorder for MockGraphController.
@@ -181,6 +183,7 @@ func (c *MockGraphControllerQueryCall) DoAndReturn(f func() graph.QueryResolver)
 type MockGrpcController struct {
 	ctrl     *gomock.Controller
 	recorder *MockGrpcControllerMockRecorder
+	isgomock struct{}
 }
 
 // MockGrpcControllerMockRecorder is the mock recorder for MockGrpcController.

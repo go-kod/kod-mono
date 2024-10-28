@@ -11,6 +11,16 @@ import (
 	"reflect"
 )
 
+// Full method names for components.
+const (
+	// GraphService_CreateTodo_FullMethodName is the full name of the method [graphImpl.CreateTodo].
+	GraphService_CreateTodo_FullMethodName = "github.com/go-kod/kod-mono/internal/app/example/GraphService.CreateTodo"
+	// GraphService_Todos_FullMethodName is the full name of the method [graphImpl.Todos].
+	GraphService_Todos_FullMethodName = "github.com/go-kod/kod-mono/internal/app/example/GraphService.Todos"
+	// Service_UniqueID_FullMethodName is the full name of the method [component.UniqueID].
+	Service_UniqueID_FullMethodName = "github.com/go-kod/kod-mono/internal/app/example/Service.UniqueID"
+)
+
 func init() {
 	kod.Register(&kod.Registration{
 		Name:      "github.com/go-kod/kod-mono/internal/app/example/GraphService",
@@ -18,17 +28,9 @@ func init() {
 		Impl:      reflect.TypeOf(graphImpl{}),
 		Refs:      ``,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
-			interceptors := info.Interceptors
-			if h, ok := info.Impl.(interface {
-				Interceptors() []interceptor.Interceptor
-			}); ok {
-				interceptors = append(interceptors, h.Interceptors()...)
-			}
-
 			return graphService_local_stub{
 				impl:        info.Impl.(GraphService),
-				interceptor: interceptor.Chain(interceptors),
-				name:        info.Name,
+				interceptor: info.Interceptor,
 			}
 		},
 	})
@@ -38,17 +40,9 @@ func init() {
 		Impl:      reflect.TypeOf(component{}),
 		Refs:      `⟦2c62dafb:KoDeDgE:github.com/go-kod/kod-mono/internal/app/example/Service→github.com/go-kod/kod-mono/internal/infra/grpc/Snowflake⟧`,
 		LocalStubFn: func(ctx context.Context, info *kod.LocalStubFnInfo) any {
-			interceptors := info.Interceptors
-			if h, ok := info.Impl.(interface {
-				Interceptors() []interceptor.Interceptor
-			}); ok {
-				interceptors = append(interceptors, h.Interceptors()...)
-			}
-
 			return service_local_stub{
 				impl:        info.Impl.(Service),
-				interceptor: interceptor.Chain(interceptors),
-				name:        info.Name,
+				interceptor: info.Interceptor,
 			}
 		},
 	})
@@ -63,13 +57,13 @@ var _ kod.InstanceOf[Service] = (*component)(nil)
 // graphService_local_stub is a local stub implementation of [GraphService].
 type graphService_local_stub struct {
 	impl        GraphService
-	name        string
 	interceptor interceptor.Interceptor
 }
 
-// Check that graphService_local_stub implements the GraphService interface.
+// Check that [graphService_local_stub] implements the [GraphService] interface.
 var _ GraphService = (*graphService_local_stub)(nil)
 
+// CreateTodo wraps the method [graphImpl.CreateTodo].
 func (s graphService_local_stub) CreateTodo(ctx context.Context, a1 model.NewTodo) (r0 *model.Todo, err error) {
 
 	if s.interceptor == nil {
@@ -85,15 +79,14 @@ func (s graphService_local_stub) CreateTodo(ctx context.Context, a1 model.NewTod
 
 	info := interceptor.CallInfo{
 		Impl:       s.impl,
-		Component:  s.name,
-		FullMethod: "github.com/go-kod/kod-mono/internal/app/example/GraphService.CreateTodo",
-		Method:     "CreateTodo",
+		FullMethod: GraphService_CreateTodo_FullMethodName,
 	}
 
 	err = s.interceptor(ctx, info, []any{a1}, []any{r0}, call)
 	return
 }
 
+// Todos wraps the method [graphImpl.Todos].
 func (s graphService_local_stub) Todos(ctx context.Context) (r0 []*model.Todo, err error) {
 
 	if s.interceptor == nil {
@@ -109,9 +102,7 @@ func (s graphService_local_stub) Todos(ctx context.Context) (r0 []*model.Todo, e
 
 	info := interceptor.CallInfo{
 		Impl:       s.impl,
-		Component:  s.name,
-		FullMethod: "github.com/go-kod/kod-mono/internal/app/example/GraphService.Todos",
-		Method:     "Todos",
+		FullMethod: GraphService_Todos_FullMethodName,
 	}
 
 	err = s.interceptor(ctx, info, []any{}, []any{r0}, call)
@@ -121,13 +112,13 @@ func (s graphService_local_stub) Todos(ctx context.Context) (r0 []*model.Todo, e
 // service_local_stub is a local stub implementation of [Service].
 type service_local_stub struct {
 	impl        Service
-	name        string
 	interceptor interceptor.Interceptor
 }
 
-// Check that service_local_stub implements the Service interface.
+// Check that [service_local_stub] implements the [Service] interface.
 var _ Service = (*service_local_stub)(nil)
 
+// UniqueID wraps the method [component.UniqueID].
 func (s service_local_stub) UniqueID(ctx context.Context, a1 *TestReq) (r0 *TestRes, err error) {
 
 	if s.interceptor == nil {
@@ -143,9 +134,7 @@ func (s service_local_stub) UniqueID(ctx context.Context, a1 *TestReq) (r0 *Test
 
 	info := interceptor.CallInfo{
 		Impl:       s.impl,
-		Component:  s.name,
-		FullMethod: "github.com/go-kod/kod-mono/internal/app/example/Service.UniqueID",
-		Method:     "UniqueID",
+		FullMethod: Service_UniqueID_FullMethodName,
 	}
 
 	err = s.interceptor(ctx, info, []any{a1}, []any{r0}, call)
