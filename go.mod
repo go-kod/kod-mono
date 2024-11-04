@@ -9,7 +9,7 @@ require (
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/cosmtrek/air v1.49.0
 	github.com/gin-gonic/gin v1.10.0
-	github.com/go-kod/kod v0.15.0
+	github.com/go-kod/kod v0.15.3
 	github.com/go-kod/kod-ext v0.1.0
 	github.com/grafana/pyroscope-go v1.2.0
 	github.com/ravilushqa/otelgqlgen v0.17.0
