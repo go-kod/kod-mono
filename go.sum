@@ -89,8 +89,8 @@ github.com/gin-contrib/sse v0.1.0 h1:Y/yl/+YNO8GZSjAhjMsSuLt29uWRFHdHYUb5lYOV9qE
 github.com/gin-contrib/sse v0.1.0/go.mod h1:RHrZQHXnP2xjPF+u1gW/2HnVO7nvIa9PG3Gm+fLHvGI=
 github.com/gin-gonic/gin v1.10.0 h1:nTuyha1TYqgedzytsKYqna+DfLos46nTv2ygFy86HFU=
 github.com/gin-gonic/gin v1.10.0/go.mod h1:4PMNQiOhvDRa013RKVbsiNwoyezlm2rm0uX/T7kzp5Y=
-github.com/go-kod/kod v0.15.0 h1:0EbqCrZqO+kzvifKYt6sjZIteSxq0GmQz56pSegRdrI=
-github.com/go-kod/kod v0.15.0/go.mod h1:bMbB1qWkVJeGD3bezJGAur2dpXQNUYNrGRoC2wUuNpQ=
+github.com/go-kod/kod v0.15.3 h1:7F2oAWFLgR/gIK6GBeE6lIi7LOJeGOE11gkthuMvKkw=
+github.com/go-kod/kod v0.15.3/go.mod h1:bMbB1qWkVJeGD3bezJGAur2dpXQNUYNrGRoC2wUuNpQ=
 github.com/go-kod/kod-ext v0.1.0 h1:AObJgb9LkvxzXeIYLTbkXs9tnOvtIkkYhy+Rf26FWTo=
 github.com/go-kod/kod-ext v0.1.0/go.mod h1:eZIPkbwJ7a7i8qggkWYMNI1bZwFTbVi3goMz1fgseXU=
 github.com/go-logr/logr v1.2.2/go.mod h1:jdQByPbusPIv2/zmleS9BjJVeZ6kBagPoEUsqbVz/1A=
