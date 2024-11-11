@@ -15,12 +15,6 @@ import (
 
 // Full method names for components.
 const (
-	// GinController_UniqueID_FullMethodName is the full name of the method [ginImpl.UniqueID].
-	GinController_UniqueID_FullMethodName = "github.com/go-kod/kod-mono/internal/adaptor/server/GinController.UniqueID"
-	// GraphController_Mutation_FullMethodName is the full name of the method [resolver.Mutation].
-	GraphController_Mutation_FullMethodName = "github.com/go-kod/kod-mono/internal/adaptor/server/GraphController.Mutation"
-	// GraphController_Query_FullMethodName is the full name of the method [resolver.Query].
-	GraphController_Query_FullMethodName = "github.com/go-kod/kod-mono/internal/adaptor/server/GraphController.Query"
 	// GrpcController_UniqueId_FullMethodName is the full name of the method [grpcImpl.UniqueId].
 	GrpcController_UniqueId_FullMethodName = "github.com/go-kod/kod-mono/internal/adaptor/server/GrpcController.UniqueId"
 )
@@ -80,7 +74,6 @@ var _ kod.InstanceOf[GrpcController] = (*grpcImpl)(nil)
 var _ kod.InstanceOf[kod.Main] = (*Server)(nil)
 
 // Local stub implementations.
-
 // ginController_local_stub is a local stub implementation of [GinController].
 type ginController_local_stub struct {
 	impl        GinController
