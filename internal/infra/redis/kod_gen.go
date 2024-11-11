@@ -35,7 +35,6 @@ func init() {
 var _ kod.InstanceOf[SnowflakeRepository] = (*snowflake)(nil)
 
 // Local stub implementations.
-
 // snowflakeRepository_local_stub is a local stub implementation of [SnowflakeRepository].
 type snowflakeRepository_local_stub struct {
 	impl        SnowflakeRepository

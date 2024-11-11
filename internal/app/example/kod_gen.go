@@ -53,7 +53,6 @@ var _ kod.InstanceOf[GraphService] = (*graphImpl)(nil)
 var _ kod.InstanceOf[Service] = (*component)(nil)
 
 // Local stub implementations.
-
 // graphService_local_stub is a local stub implementation of [GraphService].
 type graphService_local_stub struct {
 	impl        GraphService

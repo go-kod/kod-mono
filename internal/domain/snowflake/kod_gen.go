@@ -35,7 +35,6 @@ func init() {
 var _ kod.InstanceOf[Service] = (*service)(nil)
 
 // Local stub implementations.
-
 // service_local_stub is a local stub implementation of [Service].
 type service_local_stub struct {
 	impl        Service
