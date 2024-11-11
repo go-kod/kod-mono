@@ -11,3 +11,6 @@ etcdv3 = { endpoints = ["localhost:2379"] }
 
 ["github.com/go-kod/kod-mono/internal/infra/grpc/Snowflake"]
 target = "localhost:9528"
+
+["github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository"]
+addr = "localhost:6379"
