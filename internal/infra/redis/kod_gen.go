@@ -12,6 +12,8 @@ import (
 
 // Full method names for components.
 const (
+	// SnowflakeRepository is the full name of the component [github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository].
+	SnowflakeRepository_ComponentName = "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository"
 	// SnowflakeRepository_GetUniqId_FullMethodName is the full name of the method [snowflake.GetUniqId].
 	SnowflakeRepository_GetUniqId_FullMethodName = "github.com/go-kod/kod-mono/internal/infra/redis/SnowflakeRepository.GetUniqId"
 )
@@ -30,6 +32,25 @@ func init() {
 		},
 	})
 }
+
+// CodeGen version check.
+var _ kod.CodeGenLatestVersion = kod.CodeGenVersion[[0][1]struct{}](`
+ERROR: You generated this file with 'kod generate' (codegen
+version v0.1.0). The generated code is incompatible with the version of the
+github.com/go-kod/kod module that you're using. The kod module
+version can be found in your go.mod file or by running the following command.
+
+    go list -m github.com/go-kod/kod
+
+We recommend updating the kod module and the 'kod generate' command by
+running the following.
+
+    go get github.com/go-kod/kod@latest
+    go install github.com/go-kod/kod/cmd/kod@latest
+
+Then, re-run 'kod generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/go-kod/kod/issues.
+`)
 
 // kod.InstanceOf checks.
 var _ kod.InstanceOf[SnowflakeRepository] = (*snowflake)(nil)
