@@ -5,8 +5,8 @@ package server
 
 import (
 	"context"
-	"github.com/gin-gonic/gin"
 	"github.com/go-kod/kod"
+	"github.com/go-kod/kod-ext/server/kgin"
 	"github.com/go-kod/kod-mono/api/graph"
 	"github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1"
 	"github.com/go-kod/kod/interceptor"
@@ -15,6 +15,12 @@ import (
 
 // Full method names for components.
 const (
+	// GinController is the full name of the component [github.com/go-kod/kod-mono/internal/adaptor/server/GinController].
+	GinController_ComponentName = "github.com/go-kod/kod-mono/internal/adaptor/server/GinController"
+	// GraphController is the full name of the component [github.com/go-kod/kod-mono/internal/adaptor/server/GraphController].
+	GraphController_ComponentName = "github.com/go-kod/kod-mono/internal/adaptor/server/GraphController"
+	// GrpcController is the full name of the component [github.com/go-kod/kod-mono/internal/adaptor/server/GrpcController].
+	GrpcController_ComponentName = "github.com/go-kod/kod-mono/internal/adaptor/server/GrpcController"
 	// GrpcController_UniqueId_FullMethodName is the full name of the method [grpcImpl.UniqueId].
 	GrpcController_UniqueId_FullMethodName = "github.com/go-kod/kod-mono/internal/adaptor/server/GrpcController.UniqueId"
 )
@@ -67,6 +73,25 @@ func init() {
 	})
 }
 
+// CodeGen version check.
+var _ kod.CodeGenLatestVersion = kod.CodeGenVersion[[0][1]struct{}](`
+ERROR: You generated this file with 'kod generate' (codegen
+version v0.1.0). The generated code is incompatible with the version of the
+github.com/go-kod/kod module that you're using. The kod module
+version can be found in your go.mod file or by running the following command.
+
+    go list -m github.com/go-kod/kod
+
+We recommend updating the kod module and the 'kod generate' command by
+running the following.
+
+    go get github.com/go-kod/kod@latest
+    go install github.com/go-kod/kod/cmd/kod@latest
+
+Then, re-run 'kod generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/go-kod/kod/issues.
+`)
+
 // kod.InstanceOf checks.
 var _ kod.InstanceOf[GinController] = (*ginImpl)(nil)
 var _ kod.InstanceOf[GraphController] = (*resolver)(nil)
@@ -84,7 +109,7 @@ type ginController_local_stub struct {
 var _ GinController = (*ginController_local_stub)(nil)
 
 // UniqueID wraps the method [ginImpl.UniqueID].
-func (s ginController_local_stub) UniqueID(a0 *gin.Context) {
+func (s ginController_local_stub) UniqueID(a0 *kgin.Context) {
 	// Because the first argument is not context.Context, so interceptors are not supported.
 	s.impl.UniqueID(a0)
 	return

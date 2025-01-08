@@ -7,12 +7,11 @@ import (
 	"net/http"
 
 	"github.com/go-kod/kod"
-	"github.com/go-kod/kod-ext/client/kpyroscope"
+	kpyroscope "github.com/go-kod/kod-ext/core/pyroscope"
 	"github.com/go-kod/kod-ext/registry/etcdv3"
 	kgin "github.com/go-kod/kod-ext/server/kgin"
 	"github.com/go-kod/kod-ext/server/kgrpc"
 	snowflakev1 "github.com/go-kod/kod-mono/api/grpc/gen/go/snowflake/v1"
-	"github.com/grafana/pyroscope-go"
 	"github.com/samber/lo"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -22,9 +21,8 @@ type Server struct {
 	kod.Implements[kod.Main]
 	kod.WithConfig[config]
 
-	server    *kgin.Server
-	grpc      *kgrpc.Server
-	pyroscope *pyroscope.Profiler
+	server *kgin.Server
+	grpc   *kgrpc.Server
 
 	example   kod.Ref[GinController]
 	grpcImpl  kod.Ref[GrpcController]
@@ -32,7 +30,7 @@ type Server struct {
 }
 
 func (s *Server) Init(ctx context.Context) error {
-	s.pyroscope = lo.Must(s.Config().Pyroscope.Build(ctx))
+	lo.Must0(s.Config().Pyroscope.Init(ctx))
 
 	registry := lo.Must(s.Config().Etcdv3.Build(ctx))
 
@@ -66,12 +64,7 @@ func (s *Server) Run(ctx context.Context) error {
 }
 
 func (s *Server) Shutdown(ctx context.Context) error {
-	err := s.pyroscope.Stop()
-	if err != nil {
-		return fmt.Errorf("failed to stop pyroscope: %w", err)
-	}
-
-	err = s.server.GracefulStop(ctx)
+	err := s.server.GracefulStop(ctx)
 	if err != nil {
 		return fmt.Errorf("failed to stop server: %w", err)
 	}
