@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/handler/transport"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gin-gonic/gin"
 	"github.com/go-kod/kod"
@@ -24,9 +25,11 @@ func (r *resolver) Mutation() graph.MutationResolver {
 }
 
 func graphqlHandler(g GraphController) gin.HandlerFunc {
-	h := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{
+	h := handler.New(graph.NewExecutableSchema(graph.Config{
 		Resolvers: g,
 	}))
+	h.AddTransport(transport.POST{})
+	h.AddTransport(transport.GET{})
 
 	h.Use(otelgqlgen.Middleware())
 

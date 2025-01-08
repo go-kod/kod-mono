@@ -6,6 +6,7 @@ import (
 
 	"github.com/99designs/gqlgen/client"
 	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/handler/transport"
 	"github.com/go-kod/kod"
 	"github.com/go-kod/kod-mono/api/graph"
 	"github.com/go-kod/kod-mono/internal/adaptor/server"
@@ -16,9 +17,13 @@ func TestGraphController(t *testing.T) {
 	t.Parallel()
 
 	kod.RunTest(t, func(ctx context.Context, s server.GraphController) {
-		c := client.New(handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{
+		h := handler.New(graph.NewExecutableSchema(graph.Config{
 			Resolvers: s,
-		})))
+		}))
+		h.AddTransport(transport.POST{})
+		h.AddTransport(transport.GET{})
+
+		c := client.New(h)
 
 		var response map[string]interface{}
 		c.MustPost(`{todos {id,text} }`, &response)
