@@ -5,7 +5,7 @@ go 1.22.7
 toolchain go1.23.0
 
 require (
-	github.com/99designs/gqlgen v0.17.62
+	github.com/99designs/gqlgen v0.17.63
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/cosmtrek/air v1.49.0
 	github.com/gin-gonic/gin v1.10.0
@@ -21,7 +21,7 @@ require (
 	github.com/vektah/gqlparser/v2 v2.5.21
 	go.uber.org/mock v0.5.0
 	google.golang.org/grpc v1.69.2
-	google.golang.org/protobuf v1.36.1
+	google.golang.org/protobuf v1.36.2
 )
 
 require (
