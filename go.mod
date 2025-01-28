@@ -12,7 +12,7 @@ require (
 	github.com/go-kod/kod v0.18.0
 	github.com/go-kod/kod-ext v0.4.0
 	github.com/ravilushqa/otelgqlgen v0.17.0
-	github.com/samber/lo v1.47.0
+	github.com/samber/lo v1.49.0
 	github.com/spf13/cast v1.7.1
 	github.com/stretchr/testify v1.10.0
 	github.com/swaggo/files v1.0.1
@@ -20,8 +20,8 @@ require (
 	github.com/swaggo/swag v1.16.4
 	github.com/vektah/gqlparser/v2 v2.5.21
 	go.uber.org/mock v0.5.0
-	google.golang.org/grpc v1.69.4
-	google.golang.org/protobuf v1.36.3
+	google.golang.org/grpc v1.70.0
+	google.golang.org/protobuf v1.36.4
 )
 
 require (
