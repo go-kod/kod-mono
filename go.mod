@@ -5,20 +5,20 @@ go 1.22.7
 toolchain go1.23.0
 
 require (
-	github.com/99designs/gqlgen v0.17.63
+	github.com/99designs/gqlgen v0.17.64
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/cosmtrek/air v1.49.0
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-kod/kod v0.18.0
 	github.com/go-kod/kod-ext v0.4.0
 	github.com/ravilushqa/otelgqlgen v0.17.0
-	github.com/samber/lo v1.49.0
+	github.com/samber/lo v1.49.1
 	github.com/spf13/cast v1.7.1
 	github.com/stretchr/testify v1.10.0
 	github.com/swaggo/files v1.0.1
 	github.com/swaggo/gin-swagger v1.6.0
 	github.com/swaggo/swag v1.16.4
-	github.com/vektah/gqlparser/v2 v2.5.21
+	github.com/vektah/gqlparser/v2 v2.5.22
 	go.uber.org/mock v0.5.0
 	google.golang.org/grpc v1.70.0
 	google.golang.org/protobuf v1.36.4
@@ -81,7 +81,7 @@ require (
 	github.com/knadh/koanf/v2 v2.1.2 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
